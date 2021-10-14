@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
 
     private BoxCollider2D boxCollider;  // for collision detection
     private Vector3 moveDelta;  // on next frame, move this amount
+    private RaycastHit2D hit;
 
     // methods
 
@@ -39,7 +40,35 @@ public class Player : MonoBehaviour
             transform.localScale = new Vector3(-1, 1, 1);
         }
 
-        // make player move
-        transform.Translate(moveDelta * Time.deltaTime);
+        // check to see if we can move in this direction by casting a box first.
+        // if box returns null, we can move
+        hit = Physics2D.BoxCast(
+            transform.position, 
+            boxCollider.size, 
+            0, 
+            new Vector2(0, moveDelta.y),
+            Mathf.Abs(moveDelta.y * Time.deltaTime),
+            LayerMask.GetMask("Actor", "Blocking")
+            );
+        if (hit.collider == null)
+        {
+            // make player move
+            transform.Translate(0, moveDelta.y * Time.deltaTime, 0);
+        }
+
+
+        hit = Physics2D.BoxCast(
+            transform.position,
+            boxCollider.size,
+            0,
+            new Vector2(moveDelta.x, 0),
+            Mathf.Abs(moveDelta.x * Time.deltaTime),
+            LayerMask.GetMask("Actor", "Blocking")
+            );
+        if (hit.collider == null)
+        {
+            // make player move
+            transform.Translate(moveDelta.x * Time.deltaTime, 0, 0);
+        }
     }
 }
