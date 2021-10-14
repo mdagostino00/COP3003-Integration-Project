@@ -4,9 +4,15 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    private BoxCollider2D boxCollider;  // for collision detection
+    // fields
 
+    private float x;  // movement values
+    private float y;
+
+    private BoxCollider2D boxCollider;  // for collision detection
     private Vector3 moveDelta;  // on next frame, move this amount
+
+    // methods
 
     // on object initialization
     private void Start()
@@ -18,8 +24,8 @@ public class Player : MonoBehaviour
     private void FixedUpdate()
     {
         // gets input from player (wasd or arrows by default)
-        float x = Input.GetAxisRaw("Horizontal");
-        float y = Input.GetAxisRaw("Vertical");
+        x = Input.GetAxisRaw("Horizontal");
+        y = Input.GetAxisRaw("Vertical");
 
         // Reset moveDelta
         moveDelta = new Vector3(x, y, 0);
