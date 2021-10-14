@@ -1,5 +1,5 @@
 
-# JRPG FTW Unity GAme
+# JRPG FTW Unity Game
 We are making a game for our Programming II integration project.
 
 <h2>
