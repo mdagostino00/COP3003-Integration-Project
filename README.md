@@ -1,6 +1,6 @@
 
 # JRPG FTW Unity Game
-We are making a game for our Programming II integration project.
+We are making a game for our Programming II integration project. This project is a collaboration between me, Elijah Nieves, and Robert McNiven. 
 
 <h2>
 About
