@@ -12,4 +12,8 @@ public class Enemy : Entity
         dirY = 1;         // entity's movement direction in the Y direction
     }
 
+    void FixedUpdate()
+    {
+        EntityUpdate();
+    }
 }

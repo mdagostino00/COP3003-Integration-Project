@@ -15,4 +15,9 @@ public class PlayerWEntity : Entity
         EntityStart();
         moveSpeed = 1F;                                 // multiplier that will be multiplied to the entity's movement. Make them slower or faster
     }
+
+    void FixedUpdate()
+    {
+        EntityUpdate();
+    }
 }

@@ -48,7 +48,7 @@ public class Entity : MonoBehaviour
 
 
     // Update is called once per frame
-    void Update()
+    protected void EntityUpdate()
     {
         // sets value of movement
         moveX = GetMovX();
@@ -67,7 +67,19 @@ public class Entity : MonoBehaviour
             transform.localScale = new Vector3(-1, 1, 1);
         }
 
-        // Make this thing move
-        transform.Translate(moveDelta * Time.deltaTime);
+        // Make sure we can move in this direction by castiong a box there first. If the box returns null, we're free to move.
+        hit = Physics2D.BoxCast(transform.position, boxCollider.size, 0, new Vector2(0, moveDelta.y), Mathf.Abs(moveDelta.y * Time.deltaTime), LayerMask.GetMask("Actor", "Blocking"));
+        if (hit.collider == null)
+        {
+            // Make this thing move
+            transform.Translate(0, moveDelta.y * Time.deltaTime, 0);
+        }
+
+        hit = Physics2D.BoxCast(transform.position, boxCollider.size, 0, new Vector2(moveDelta.x, 0), Mathf.Abs(moveDelta.x * Time.deltaTime), LayerMask.GetMask("Actor", "Blocking"));
+        if (hit.collider == null)
+        {
+            // Make this thing move
+            transform.Translate(moveDelta.x * Time.deltaTime, 0, 0);
+        }
     }
 }
