@@ -233,6 +233,9 @@ TextureImporter:
   - first:
       213: 2119405066745214398
     second: crate_3
+  - first:
+      213: -4945968392062809684
+    second: enemy_purple_mini
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -325,9 +328,9 @@ TextureImporter:
       name: player_0
       rect:
         serializedVersion: 2
-        x: 160
+        x: 161
         y: 0
-        width: 16
+        width: 15
         height: 16
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -346,9 +349,9 @@ TextureImporter:
       name: player_1
       rect:
         serializedVersion: 2
-        x: 176
+        x: 177
         y: 0
-        width: 16
+        width: 15
         height: 16
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -1934,6 +1937,27 @@ TextureImporter:
       bones: []
       spriteID: eb5f28adda3a96d10800000000000000
       internalID: 2119405066745214398
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy_purple_mini
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 32
+        width: 13
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ca949c8c3f36c5bb0800000000000000
+      internalID: -4945968392062809684
       vertices: []
       indices: 
       edges: []
