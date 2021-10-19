@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class CameraMotor : MonoBehaviour
 {
-    public Transform lookAt;
-    public float boundX = 0.4f;
-    public float boundY = 0.2f;
+    [SerializeField]
+    private Transform lookAt;
+    private float boundX = 0.4f;
+    private float boundY = 0.2f;
 
-    private void LateUpdate()
+    private void LateUpdate()       // called after Update and FixedUpdate
     {
         Vector3 delta = Vector3.zero;
 
