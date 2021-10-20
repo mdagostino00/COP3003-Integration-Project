@@ -60,7 +60,7 @@ public class Entity : MonoBehaviour
         // Swap sprite direction, based on going right or left
         if (moveDelta.x > 0)
         {
-            transform.localScale = Vector3.one;
+            tran sform.localScale = Vector3.one;
         }
         else if (moveDelta.x < 0)
         {
