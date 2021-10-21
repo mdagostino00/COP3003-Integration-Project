@@ -127,7 +127,10 @@ SpriteAtlas:
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
-  - {fileID: 21300000, guid: 08f60f058a5dd3742a6a4f07f5782204, type: 3}
+  - {fileID: -5076604359874573457, guid: 2eaf2457a16151b41ba8e413aec4e996, type: 3}
+  - {fileID: 3031968657911588155, guid: 2eaf2457a16151b41ba8e413aec4e996, type: 3}
+  - {fileID: 8076167133347541446, guid: 2eaf2457a16151b41ba8e413aec4e996, type: 3}
+  - {fileID: 1348293749417817785, guid: 2eaf2457a16151b41ba8e413aec4e996, type: 3}
   - {fileID: -4519705803481731268, guid: 26c083fb02bd2a24ab98860a3ae6a1c1, type: 3}
   - {fileID: -1483850941048801243, guid: 26c083fb02bd2a24ab98860a3ae6a1c1, type: 3}
   - {fileID: 4757771083200636256, guid: 26c083fb02bd2a24ab98860a3ae6a1c1, type: 3}
@@ -206,9 +209,11 @@ SpriteAtlas:
   - {fileID: 2712581143932502288, guid: 26c083fb02bd2a24ab98860a3ae6a1c1, type: 3}
   - {fileID: 7523621442351911079, guid: 26c083fb02bd2a24ab98860a3ae6a1c1, type: 3}
   - {fileID: -2422730375314409053, guid: 26c083fb02bd2a24ab98860a3ae6a1c1, type: 3}
-  - {fileID: 21300000, guid: f16e279f881e09c46b55839e1e40855c, type: 3}
   m_PackedSpriteNamesToIndex:
-  - KnightHead
+  - KnightWalking_0
+  - KnightWalking_1
+  - KnightWalking_2
+  - KnightWalking_3
   - drip_stream_floor_blue
   - drip_stream_top
   - stair_top_mid
@@ -287,7 +292,6 @@ SpriteAtlas:
   - torch_4
   - torch_5
   - drip_stream_floor_green
-  - KnightFull0
   m_RenderDataMap: {}
   m_Tag: SA_Dungeon
   m_IsVariant: 0
