@@ -9,8 +9,6 @@ public class KnightClass : PlayerMovement
     void Start()
     {
         Debug.Log("Knight has been created!");
-        
-
     }
 
     void TakeDamage(int damage)
