@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerStats
+public class PlayerStats : MonoBehaviour
 {
     // base health and magic
     [SerializeField]
-    private static int HEALTH_BASE = 100;
+    protected static int HEALTH_BASE = 100;
     [SerializeField]
-    private static int MAGICPOINTS_BASE = 20;
+    protected static int MAGICPOINTS_BASE = 20;
 
     // player's changing health and magic total
     [SerializeField]
