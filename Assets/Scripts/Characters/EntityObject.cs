@@ -64,9 +64,9 @@ public class EntityObject : MonoBehaviour
         return modifiedDamage;
     }
 
-    public int HealthReduce(int damageValue)
+    public int HealthDamaged(int damageValue)
     {
-        //damageValue = (int)(damageValue * DefenseMod); // multiply damage value by player defense
+        damageValue = (int)(damageValue * DefenseMod); // multiply damage value by player defense
         this.health -= damageValue; // subtract modified damage from health
         return damageValue; // return if print damage needed
     }
