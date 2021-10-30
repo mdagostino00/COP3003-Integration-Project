@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HealthBar : PlayerStats
+public class HealthBar : EntityObject
 {
     public Slider slider;
 
