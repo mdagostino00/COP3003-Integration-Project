@@ -5,7 +5,7 @@ using UnityEngine;
 public class Enemy : TestBase
 {
     [SerializeField]
-    private GameObject targetOBJ;
+    private GameObject targetOBJ;       //object that the enemy should follo. usually player.
 
     protected void Awake()
     {

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+//elijah made this by just conglomerating functions from other classes into a useful base class
 
 
 public class TestBase : MonoBehaviour
@@ -17,7 +18,7 @@ public class TestBase : MonoBehaviour
 
     // passive modifiers
     [SerializeField]
-    private float walkSpeedMultiplier = 1.0f; // how fast player should walk
+    private float walkSpeedMultiplier = 1.0f; // how fast entity should walk
     //[SerializeField]
     // private float runSpeedMultiplier = 1.2f; // runSpeed for when it's implemented
     [SerializeField]
@@ -80,7 +81,7 @@ public class TestBase : MonoBehaviour
     protected void RotateTowardDirection()
     {
         //turn off walking
-        if (movement != Vector2.zero) // if we have player movement input
+        if (movement != Vector2.zero) // if we have any movement
         {
             // rotate sprite to face direction of movement
             transform.rotation =
