@@ -3,35 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Player : EntityObject
+public class Player : Entity
 {
     [SerializeField]
-    private float movementSpeed;
+    protected static int MAGICPOINTS_BASE = 20;
+    [SerializeField]
+    private int magicPointsTotal = MAGICPOINTS_BASE;
+    [SerializeField]
+    private int magicPoints = MAGICPOINTS_BASE;
 
-    private Vector2 movement;
-    private Rigidbody2D body;
-    private Animator anim;
+    //[SerializeField]
+    //private int inventorySlots;  // later lol
 
-    // Awake is called when Unity creates the object
-    void Awake()
-    {
-        body = GetComponent<Rigidbody2D>();
-        anim = GetComponent<Animator>();
-    }
+    private int experiencePoints = 0;
 
-    // FixedUpdate is called at a fixed interval, not always once per frame.
-    void FixedUpdate()
+    public int MagicPoints { get => magicPoints; set => magicPoints = value; }
+    public int MagicPointsTotal { get => magicPointsTotal; set => magicPointsTotal = value; }
+    public int ExperiencePoints { get => experiencePoints; set => experiencePoints = value; }
+
+    protected override void FixedUpdate()
     {
         RotateTowardDirection();
         Movement();
-    }
-
-    float GetMagnitude()
-    {
-        float velocityX = body.velocity.x * body.velocity.x;
-        float velocityY = body.velocity.y * body.velocity.y;
-        float magnitude = Mathf.Sqrt(velocityX + velocityY);
-        return magnitude;
     }
 
     void OnMove(InputValue value)
@@ -40,19 +33,7 @@ public class Player : EntityObject
         movement = value.Get<Vector2>();
     }
 
-    private void Movement()
-    {
-        // get current position
-        Vector2 currentPos = body.position;
-        // calculate move delta
-        Vector2 adjustedMovement = movement * movementSpeed;
-        // add move delta to current position
-        Vector2 newPos = currentPos + adjustedMovement * Time.fixedDeltaTime;
-        // move player to new position
-        body.MovePosition(newPos);
-    }
-
-    private void RotateTowardDirection()
+    protected override void RotateTowardDirection()
     {
         //turn off walking
         if (movement != Vector2.zero) // if we have player movement input

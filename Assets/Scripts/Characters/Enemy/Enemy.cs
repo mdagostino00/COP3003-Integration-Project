@@ -2,22 +2,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : TestBase
+public class Enemy : Entity
 {
     [SerializeField]
-    private GameObject targetOBJ;       //object that the enemy should follo. usually player.
+    public Transform player; // we need the player's position
 
-    protected void Awake()
+    // Update() is called every frame
+    void Update()
     {
-        baseAwake();
+        direction = player.position - transform.position; // find direction vector from enemy to player
+        //Debug.Log(direction);
+        RotateTowardDirection(); // rotate enemy sprite to face player
+        moveCharacter(ref direction); // normalize the direction vector and set this to the movement vector
     }
 
-    protected void FixedUpdate()
+    // Use FixedUpdate() for physics
+    protected override void FixedUpdate()
     {
-        targetOBJ = GameObject.FindGameObjectWithTag("Player");     //find player position
-        movement = targetOBJ.transform.position - transform.position;       //change the movement vector to point toward the player's position
+        //targetOBJ = GameObject.FindGameObjectWithTag("Player");     //find player position
+        //movement = targetOBJ.transform.position - transform.position;       //change the movement vector to point toward the player's position
 
-        baseFixedUpdate();
+        Movement(direction);
     }
 
+    public void moveCharacter(ref Vector2 direction)
+    {
+        direction.Normalize(); // really cool vector normalizion function in Unity
+        movement = direction; // Vector2D movement is now the normalized vector
+    }
 }
