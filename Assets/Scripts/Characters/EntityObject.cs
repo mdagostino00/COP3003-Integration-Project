@@ -34,15 +34,15 @@ public class EntityObject : MonoBehaviour
     private int experiencePoints = 0;
 
     // passive modifiers
-    [SerializeField]
+    //[SerializeField]
     private float walkSpeedMultiplier = 1.0f; // how fast player should walk
     //[SerializeField]
     // private float runSpeedMultiplier = 1.2f; // runSpeed for when it's implemented
-    [SerializeField]
+    //[SerializeField]
     private float attackMod = 1.0f; // mod for physical attacks
     //[SerializeField]
     // private float magicMod = 1.0f; // mod for magic-based attacks
-    [SerializeField]
+    //[SerializeField]
     private float defenseMod = 1.0f; // physical defense modifier
     //[SerializeField]
     // private float defenseModMagic = 1.0f; // possible alt defmod for magic-property attacks
@@ -57,6 +57,7 @@ public class EntityObject : MonoBehaviour
     public int Level { get => level; set => level = value; }
     public float DefenseMod { get => defenseMod; set => defenseMod = value; }
     public int ExperiencePoints { get => experiencePoints; set => experiencePoints = value; }
+    public float AttackMod { get => attackMod; set => attackMod = value; }
 
     public int DamageCalculate(int baseDamage)
     {

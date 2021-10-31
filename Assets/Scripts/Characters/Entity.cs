@@ -2,22 +2,34 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+//elijah made this by just conglomerating functions from other classes into a useful base class
 
 
-public class TestBase : MonoBehaviour
+public class Entity : MonoBehaviour
 {
     // fields
+    protected Vector2 direction;
+    protected Vector2 movement;
+    protected Rigidbody2D body;
+    protected Animator anim;
+
+    [SerializeField]
+    protected float movementSpeed;
 
     // base health
     [SerializeField]
     protected static int HEALTH_BASE = 100;
     [SerializeField]
     private int healthTotal = HEALTH_BASE;
+    [SerializeField]
     private int health;
+
+    [SerializeField]
+    private int level = 1;
 
     // passive modifiers
     [SerializeField]
-    private float walkSpeedMultiplier = 1.0f; // how fast player should walk
+    private float walkSpeedMultiplier = 1.0f; // how fast entity should walk
     //[SerializeField]
     // private float runSpeedMultiplier = 1.2f; // runSpeed for when it's implemented
     [SerializeField]
@@ -32,31 +44,28 @@ public class TestBase : MonoBehaviour
     //private float attackSpeed; // how long until player can attack again
 
     public int Health { get => health; set => health = value; }
-    public float SpeedMultiplier { get => walkSpeedMultiplier; set => walkSpeedMultiplier = value; }
     public int HealthTotal { get => healthTotal; set => healthTotal = value; }
+    public float SpeedMultiplier { get => walkSpeedMultiplier; set => walkSpeedMultiplier = value; }
+    public int Level { get => level; set => level = value; }
     public float DefenseMod { get => defenseMod; set => defenseMod = value; }
-
-    [SerializeField]
-    protected float movementSpeed;
-
-    protected Vector2 movement;
-    protected Rigidbody2D body;
-    protected Animator anim;
+    public float AttackMod { get => attackMod; set => attackMod = value; }
 
     // Awake is called when Unity creates the object
-    protected void baseAwake()
+    protected virtual void Awake()
     {
         body = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
     }
 
     // FixedUpdate is called at a fixed interval, not always once per frame.
-    protected void baseFixedUpdate()
+    protected virtual void FixedUpdate()
     {
         RotateTowardDirection();
         Movement();
+        Debug.Log("This won't print if override is successful.");
     }
 
+    // gets the magnitude of the velocity vector
     float GetMagnitude()
     {
         float velocityX = body.velocity.x * body.velocity.x;
@@ -77,22 +86,31 @@ public class TestBase : MonoBehaviour
         body.MovePosition(newPos);
     }
 
-    protected void RotateTowardDirection()
+    protected void Movement(Vector2 direction)
+    {
+        body.MovePosition((Vector2)transform.position + (direction * movementSpeed * Time.deltaTime));
+    }
+
+    protected virtual void RotateTowardDirection() // virtual because we might need to handle this function depending on enemy
     {
         //turn off walking
-        if (movement != Vector2.zero) // if we have player movement input
+        if (movement != Vector2.zero) // if we have any movement
         {
-            // rotate sprite to face direction of movement
+            // rotate sprite to face direction of movement using quaterions
             transform.rotation =
                 Quaternion.LookRotation(Vector3.forward, movement);
-            // turn on walking animation
-            anim.SetBool("walking", true);
         }
-        else
-        {
-            //turn off walking
-            anim.SetBool("walking", false);
-        }
+    }
+
+    protected void RotateTowardDirection(ref Vector2 direction)
+    {
+        //rotate the sprite without quaterions (rotation is off by 90)
+        //float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        //body.rotation = angle;
+
+        //rotate the sprite with quaterions (very cool!)
+        transform.rotation =
+                Quaternion.LookRotation(Vector3.forward, movement);
     }
 
     public int DamageCalculate(int baseDamage)
