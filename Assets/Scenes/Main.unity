@@ -1321,11 +1321,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59b3a5b8ed63fa44789f64529ad34564, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 0.2
   healthTotal: 100
   health: 0
   level: 1
-  walkSpeedMultiplier: 1
+  walkSpeedMultiplier: 0.2
   attackMod: 1
   defenseMod: 1
   player: {fileID: 567803745}
@@ -13569,8 +13568,8 @@ GameObject:
   - component: {fileID: 1309150004}
   - component: {fileID: 1309150002}
   - component: {fileID: 1309150006}
-  - component: {fileID: 1309150003}
   - component: {fileID: 1309150007}
+  - component: {fileID: 1309150003}
   m_Layer: 9
   m_Name: enemy_purple_mini
   m_TagString: Untagged
@@ -13613,14 +13612,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1309150001}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59b3a5b8ed63fa44789f64529ad34564, type: 3}
+  m_Script: {fileID: 11500000, guid: cc0c4ab6efb100e4989e78620e619830, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 0.2
   healthTotal: 100
-  health: 0
+  health: 1
   level: 1
-  walkSpeedMultiplier: 1
+  walkSpeedMultiplier: 5
   attackMod: 1
   defenseMod: 1
   player: {fileID: 567803745}
@@ -13930,11 +13928,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59b3a5b8ed63fa44789f64529ad34564, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 0.2
   healthTotal: 100
   health: 0
   level: 1
-  walkSpeedMultiplier: 1
+  walkSpeedMultiplier: 0.2
   attackMod: 1
   defenseMod: 1
   player: {fileID: 567803745}
