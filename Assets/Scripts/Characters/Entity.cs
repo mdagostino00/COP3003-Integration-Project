@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-//elijah made this by just conglomerating functions from other classes into a useful base class
+//elijah made this by just conglomerating functions from michael's player classes into a useful base class
 
 
 public class Entity : MonoBehaviour
@@ -12,9 +12,6 @@ public class Entity : MonoBehaviour
     protected Vector2 movement;
     protected Rigidbody2D body;
     protected Animator anim;
-
-    [SerializeField]
-    protected float movementSpeed;
 
     // base health
     [SerializeField]
@@ -79,7 +76,7 @@ public class Entity : MonoBehaviour
         // get current position
         Vector2 currentPos = body.position;
         // calculate move delta
-        Vector2 adjustedMovement = movement * movementSpeed;
+        Vector2 adjustedMovement = movement * walkSpeedMultiplier;
         // add move delta to current position
         Vector2 newPos = currentPos + adjustedMovement * Time.fixedDeltaTime;
         // move player to new position
@@ -88,7 +85,7 @@ public class Entity : MonoBehaviour
 
     protected void Movement(Vector2 direction)
     {
-        body.MovePosition((Vector2)transform.position + (direction * movementSpeed * Time.deltaTime));
+        body.MovePosition((Vector2)transform.position + (direction * walkSpeedMultiplier * Time.deltaTime));
     }
 
     protected virtual void RotateTowardDirection() // virtual because we might need to handle this function depending on enemy
