@@ -50,5 +50,11 @@ public class Player : Entity
             anim.SetBool("walking", false);
         }
     }
+    /*
+    public abstract void attack_button();
+    public abstract void defense_button();
+    public abstract void item_use();
+    public abstract void skill_button();
+    */
 
 }

@@ -1,75 +1,44 @@
+
 // Elijah Nieves
 using System.Collections;
 using System.Collections.Generic;
-
 using UnityEngine;
 
 public class Slime : Enemy
-{
-    private bool isCoroutineExecuting = false;
-    int seconds = 0;
-    private int attackDelay = 1;       //how long the slime will wait between jumps toward the player.
-    private int attackLength = 2;       //how many seconds the slime will attack before the delay
-
-    // Use FixedUpdate() for physics
-    protected override void FixedUpdate()
+{ 
+    protected override void Awake()
     {
-        StartCoroutine(Wait(attackDelay, SlimeMove));
-        
-        /*StartCoroutine(Time());
-        while (seconds < attackLength)
-        {
-            Movement(direction);
-        }
+        base.Awake();
 
-        if (seconds >= (attackLength + attackDelay))
-        {
-            seconds = 0;
-        }*/
+        // set movement values
+        moveDelay = 0.75f;
+        moveLength = 0.5f;
+
+        // make it so it does not immediately move
+        isMoving = false;
     }
 
-    void SlimeMove()
+    // Use Update() for non-physics (timer)
+    protected override void Update()
     {
-        Movement(direction);
-    }
+        timer += Time.deltaTime;        // each frame, add how much time has passed.
 
-    IEnumerator Wait(float delay, System.Action passedFunction)
-    {
-
-        if (isCoroutineExecuting)
+        if (isMoving == false)          // if the enemy is not moving
         {
-            yield break;
+            base.Update();              // only let the slime change directions while it is getting ready to jump
+
+            if (timer >= moveDelay)     // and they have been delayed long enough
+            {
+                timer = 0.0f;           // reset the timer
+                isMoving = true;        // set them to start moving
+            }
         }
 
-        isCoroutineExecuting = true;
-
-        yield return new WaitForSecondsRealtime(delay);      //wait for the duration of the attack delay
-
-        passedFunction();       // currently trying to figure out how to make this run for 2 seconds, then wait for 1 second, and repeat
-                                // all solultions I have tried online do not function correctly. Tried using Time, did not work.
-
-        isCoroutineExecuting = false;
+        if (isMoving == true)           // if the enemy is moving
+            if (timer >= moveLength)    // and if they have been moving for long enough
+            {
+                timer = 0.0f;           // reset the timer
+                isMoving = false;       // set them to stop moving
+            }
     }
-
-    /*IEnumerator Time()
-    {
-        if (isCoroutineExecuting)
-        {
-            yield break;
-        }
-
-        isCoroutineExecuting = true;
-
-        while (true)
-        {
-            timeCount();
-
-            yield return new WaitForSecondsRealtime(1);
-        }
-    }
-
-    void timeCount()
-    {
-        seconds += 1;
-    }*/
 }
