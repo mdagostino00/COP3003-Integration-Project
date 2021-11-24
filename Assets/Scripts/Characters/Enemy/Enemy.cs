@@ -8,6 +8,7 @@ public class Enemy : Entity
     // Enemy "is an" Entity. Enemy has a subtyping relationship with Entity.
     // Rather than inheriting just to reuse the implementation and functions of its superclasses, Enemy exists as a 'type' of Entity.
     // All subtypes of Entity exist with the assumption that they can safely use any Entity method, and will almost always be required to do so.
+    // Every function that can be invoked on Entity can also be invoked on Enemy
     [SerializeField]
     public Transform player; // we need the player's position
     protected float timer = 0.0f;
