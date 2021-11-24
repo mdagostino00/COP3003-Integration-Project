@@ -10,8 +10,8 @@ public class Entity : MonoBehaviour
     // fields
     protected Vector2 direction;
     protected Vector2 movement;
-    protected Rigidbody2D body;
-    protected Animator anim;
+    public Rigidbody2D body;
+    public Animator anim;
 
     // base health
     [SerializeField]
@@ -22,13 +22,21 @@ public class Entity : MonoBehaviour
     private int health;
 
     [SerializeField]
+    protected static int MAGICPOINTS_BASE = 20;
+    [SerializeField]
+    private int magicPointsTotal = MAGICPOINTS_BASE;
+    [SerializeField]
+    private int magicPoints = MAGICPOINTS_BASE;
+
+    [SerializeField]
     private int level = 1;
+    private int experiencePoints = 0;
 
     // passive modifiers
     [SerializeField]
-    private float walkSpeedMultiplier = 1.0f; // how fast entity should walk
-    //[SerializeField]
-    // private float runSpeedMultiplier = 1.2f; // runSpeed for when it's implemented
+    public float walkSpeedMultiplier = 1.0f; // how fast entity should walk
+    [SerializeField]
+    public float runSpeedMultiplier = 1.3f; // runSpeed for when it's implemented
     [SerializeField]
     private float attackMod = 1.0f; // mod for physical attacks
     //[SerializeField]
@@ -46,6 +54,9 @@ public class Entity : MonoBehaviour
     public int Level { get => level; set => level = value; }
     public float DefenseMod { get => defenseMod; set => defenseMod = value; }
     public float AttackMod { get => attackMod; set => attackMod = value; }
+    public int MagicPoints { get => magicPoints; set => magicPoints = value; }
+    public int MagicPointsTotal { get => magicPointsTotal; set => magicPointsTotal = value; }
+    public int ExperiencePoints { get => experiencePoints; set => experiencePoints = value; }
 
     // Awake is called when Unity creates the object
     protected virtual void Awake()

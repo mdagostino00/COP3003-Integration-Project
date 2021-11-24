@@ -14,7 +14,7 @@
                     "interactions": ""
                 },
                 {
-                    "name": "New action1",
+                    "name": "Attack",
                     "type": "Button",
                     "id": "e0f29b52-a4eb-4a55-a6a9-6b3c2052df2e",
                     "expectedControlType": "Button",
@@ -158,11 +158,11 @@
                 {
                     "name": "",
                     "id": "5c90c41d-f7d1-4bcb-ad9d-ab788578404c",
-                    "path": "",
+                    "path": "<Keyboard>/j",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "New action1",
+                    "action": "Attack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

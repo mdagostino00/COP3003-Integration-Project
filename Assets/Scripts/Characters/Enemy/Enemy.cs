@@ -6,9 +6,14 @@ public class Enemy : Entity
 {
     [SerializeField]
     public Transform player; // we need the player's position
+    protected float timer = 0.0f;
+    protected bool isMoving = true;
+
+    protected float moveDelay = 0.0f;       //how many seconds the enemy will wait between moving toward the player.
+    protected float moveLength = 1.0f;       //how many seconds the enemy will attack chase the player before the delay
 
     // Update() is called every frame
-    void Update()
+    protected virtual void Update()
     {
         direction = player.position - transform.position; // find direction vector from enemy to player
         //Debug.Log(direction);
@@ -22,12 +27,13 @@ public class Enemy : Entity
         //targetOBJ = GameObject.FindGameObjectWithTag("Player");     //find player position
         //movement = targetOBJ.transform.position - transform.position;       //change the movement vector to point toward the player's position
 
-        Movement(direction);
+        if (isMoving)               // if the enemy should be moving
+            Movement(direction);    // move them towards their target
     }
 
     public void moveCharacter(ref Vector2 direction)
     {
-        direction.Normalize(); // really cool vector normalizion function in Unity
+        direction.Normalize(); // really cool vector normalization function in Unity
         movement = direction; // Vector2D movement is now the normalized vector
     }
 }
