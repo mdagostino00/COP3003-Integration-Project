@@ -1,11 +1,13 @@
-
 // Elijah Nieves
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Slime : Enemy
-{ 
+{
+    // Slime "is an" Enemy. Slime has a subtyping relationship with Enemy.
+    // Rather than inheriting just to reuse the implementation and functions of its superclasses, Slime exists as a 'type' of Enemy.
+    // All subtypes of Enemy exist with the assumption that they can safely use any Enemy method, and will almost always be required to do so.
     protected override void Awake()
     {
         base.Awake();
