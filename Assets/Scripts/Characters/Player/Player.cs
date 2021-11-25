@@ -73,16 +73,19 @@ public class PlayerFSMState_MOVEMENT : PlayerFSMState
     public override void Update()
     {
         base.Update();
-        _player.playerMovement.Move();
 
-        //_player.playerEffects.Aim();
+        // call player's move method
+        //_player.playerMovement.Move();
+
         /*
-        if (Input.GetButton("Fire1"))
+        if (input.value)
         {
             PlayerFSMState_ATTACK attackState = (PlayerFSMState_ATTACK)_player.playerFSM.GetState(PlayerFSMStateType.ATTACK);
             attackState.AttackId = 0;
             _player.playerFSM.SetCurrentState(PlayerFSMStateType.ATTACK);
         }
+
+        /*
         if (Input.GetButton("Fire2"))
         {
             PlayerFSMState_ATTACK attackState = (PlayerFSMState_ATTACK)_player.playerFSM.GetState(PlayerFSMStateType.ATTACK);
@@ -100,103 +103,17 @@ public class PlayerFSMState_MOVEMENT : PlayerFSMState
             _player.playerFSM.SetCurrentState(PlayerFSMStateType.CROUCH);
         }
         */
+
+        
     }
 
     public override void FixedUpdate()
     {
         base.FixedUpdate();
+        _player.playerMovement.Move();
+        Debug.Log("In movement function");
     }
 }
-
-// Will modify to fit a sword attack
-/*  
-public class PlayerFSMState_ATTACK : PlayerFSMState
-{
-    private float m_elaspedTime;
-
-    public GameObject AttackGameObject { get; set; } = null;
-
-    public PlayerFSMState_ATTACK(Player player) : base(player)
-    {
-        _id = PlayerFSMStateType.ATTACK;
-    }
-
-    private int _attackID = 0;
-    private string _attackName;
-
-    public int AttackId
-    {
-        get
-        {
-            return _attackID;
-        }
-        set
-        {
-            _attackID = value;
-            _attackName = "Attack" + (_attackID + 1).ToString();
-        }
-    }
-
-    public override void Enter()
-    {
-        //Debug.Log("PlayerFSMState_ATTACK");
-        _player.playerAnimator.SetBool(_attackName, true);
-        m_elaspedTime = 0.0f;
-    }
-    public override void Exit()
-    {
-        //Debug.Log("PlayerFSMState_ATTACK - Exit");
-        _player.playerAnimator.SetBool(_attackName, false);
-    }
-    public override void Update()
-    {
-        //Debug.Log("Ammo count: " + _player.totalAmunitionCount + ", In Magazine: " + _player.bulletsInMagazine);
-        if (_player.bulletsInMagazine == 0 && _player.totalAmunitionCount > 0)
-        {
-            _player.playerFSM.SetCurrentState(PlayerFSMStateType.RELOAD);
-            return;
-        }
-
-        if (_player.totalAmunitionCount == 0)
-        {
-            //Debug.Log("No ammo");
-            _player.playerFSM.SetCurrentState(PlayerFSMStateType.MOVEMENT);
-            //_player.playerEffects.NoAmmo();
-            return;
-        }
-
-        //_player.playerEffects.Aim();
-
-        if (Input.GetButton("Fire1"))
-        {
-            _player.playerAnimator.SetBool(_attackName, true);
-            if (m_elaspedTime == 0.0f)
-            {
-                Fire();
-            }
-
-            m_elaspedTime += Time.deltaTime;
-            if (m_elaspedTime > 1.0f / _player.roundsPerSecond)
-            {
-                m_elaspedTime = 0.0f;
-            }
-        }
-        else
-        {
-            m_elaspedTime = 0.0f;
-            _player.playerAnimator.SetBool(_attackName, false);
-            _player.playerFSM.SetCurrentState(PlayerFSMStateType.MOVEMENT);
-        }
-    }
-
-    void Fire()
-    {
-        float secs = 1.0f / _player.roundsPerSecond;
-        //_player.playerEffects.DelayedFire(secs);
-        _player.bulletsInMagazine -= 1; ;
-    }
-}
-*/
 
 public class PlayerFSMState_ATTACK : PlayerFSMState
 {
@@ -303,6 +220,8 @@ public class PlayerFSM : FiniteStateMachine<int>
 
 public class PlayerMovement : Entity
 {
+
+
     protected override void FixedUpdate()
     {
         Move();
@@ -340,17 +259,19 @@ public class PlayerMovement : Entity
 
 }
 
-
-
-public class Player : PlayerMovement
+public class Player : Entity
 {
 
     public PlayerMovement playerMovement;
-    public PlayerFSM playerFSM = null;
+    public PlayerFSM playerFSM = new PlayerFSM();
+    public bool attackPressed;
 
     // State is called before the first frame update
-    void Awake()
+    protected override void Awake()  // Awake()
     {
+        body = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
+
         //create the FSM
         playerFSM = new PlayerFSM();
 
@@ -367,15 +288,21 @@ public class Player : PlayerMovement
     // Update is called once per frame
     void Update()
     {
-       //playerFSM.Update();
+       playerFSM.Update();
     }
 
     /*
+    void FixedUpdate()
+    {
+        playerFSM.FixedUpdate();
+    }
+    */
+    
     protected override void FixedUpdate()
     {
-        RotateTowardDirection();
-        Movement();
+        Move();
     }
+    
 
     void Move()
     {
@@ -387,6 +314,11 @@ public class Player : PlayerMovement
     {
         // get the player's input as a float vector
         movement = value.Get<Vector2>();
+    }
+
+    void OnAttack(InputValue value)
+    {
+        attackPressed = value.isPressed;
     }
 
     protected override void RotateTowardDirection()
@@ -406,7 +338,6 @@ public class Player : PlayerMovement
             anim.SetBool("walking", false);
         }
     }
-    */
 
     /*
     public abstract void attack_button();
