@@ -175,4 +175,4 @@ MonoBehaviour:
   runSpeedMultiplier: 1.3
   attackMod: 1
   defenseMod: 1
-  player: {fileID: 5301731976621060609, guid: fb519eb2a1e7c0b45b2dd49c9c7c43d7, type: 3}
+  player: {fileID: 0}
