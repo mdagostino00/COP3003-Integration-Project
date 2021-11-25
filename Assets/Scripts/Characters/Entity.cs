@@ -7,8 +7,7 @@ using UnityEngine.InputSystem;
 
 public class Entity : MonoBehaviour
 {
-    // Entity utilizes terms from MonoBehaviour, a critical class from the Unity library. Entity has an Inheritance relationship with MonoBehaviour.
-    // Entity is a not a 'type' of MonoBehaviour, it just uses the collection of tools and methods from MonoBehaviour to define how Entity objects should behave.
+    // Entity utilizes terms from MonoBehaviour, a critical class from the Unity library. Because Entity has not overridden anything from MonoBehaviour, Entity is a subtype of MonoBehaviour
     // Almost all base classes made for a Unity project will inherit MonoBehaviour, as MonoBehaviour is the class that enables object to use the Unity engine. 
 
     // fields
