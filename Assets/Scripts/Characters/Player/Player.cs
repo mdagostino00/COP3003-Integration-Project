@@ -4,7 +4,45 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Patterns;  // finite state machine
 
+/* 
+ *  Michael D'Agostino
+ *  
+ *  Inheritance refers to when a class reuses code from another class. You can create a subclass
+ *  from a base class by inheriting from that base class. The functions in the base class can then be reused or
+ *  changed as the subclass needs it.
+ *  
+ *  Subtyping refers to the compatibility of classes and interfaces. A class is a subtype of another class
+ *  if the subtyping class can invoke every function that the other class can invoke.
+ * 
+ *  In C++/#, inheritance implies subtyping because a subclass will, by default, have the same
+ *  functions as the base class. However, subtyping doesn't necessarily mean inheritance.
+ *  
+ *  The state machine below is an example of inheritance and subtyping.
+ *  Each hard-coded state, such as PlayerFSMState_MOVEMENT, inherits from the 
+ *  PlayerFSMState, which in turn inherits from a generic state. Since they use the exact
+ *  same functions, these hard-coded states are also subtypes of the PlayerFSMState. 
+ *  
+ *  These states are stored in a dictionary aggregate in the FiniteStateMachine class, which we can then swap
+ *  between by calling a function that returns the correct state when we pass it the right ID based
+ *  on the input of the player.
+ *  
+ *  The idea behind this is that we can change the Update() and FixedUpdate() functions 
+ *  called in the Player class based on the state of the player character. For example, when we 
+ *  press the attack button, we can change the player character's state from free movement
+ *  to its attack state, since the player can only be in one state at a time. We might want the player to
+ *  be able to move during the movement state, but not able to move during an attack.
+ * 
+ *  Also yes, this does work without bugs so far, but the actual logic to move between states hasn't been
+ *  implemented yet. Unity input handling is pain.
+ *  
+ *  https://www.youtube.com/watch?v=dQw4w9WgXcQs
+ *  https://www.youtube.com/watch?v=m5WsmlEOFiA
+ *  https://youtu.be/Vt8aZDPzRjI
+ *  https://faramira.com/implementing-a-finite-state-machine-using-c-in-unity-part-1/
+ */
 
+
+// number all the states
 public enum PlayerFSMStateType
 {
     MOVEMENT = 0,
@@ -19,7 +57,7 @@ public class PlayerFSMState : State<int>
 {
     // we will keep the ID for state for convenience
     // this id represents the key
-    public PlayerFSMStateType ID { get { return _id; } }
+    public new PlayerFSMStateType ID { get { return _id; } }
 
     protected Player _player = null;
     protected PlayerFSMStateType _id;
@@ -73,45 +111,38 @@ public class PlayerFSMState_MOVEMENT : PlayerFSMState
     public override void Update()
     {
         base.Update();
+        Debug.Log("In movement function");
+
 
         // call player's move method
         //_player.playerMovement.Move();
 
+        // sample input handling that doesn't even use the correct input handling
         /*
         if (input.value)
         {
             PlayerFSMState_ATTACK attackState = (PlayerFSMState_ATTACK)_player.playerFSM.GetState(PlayerFSMStateType.ATTACK);
             attackState.AttackId = 0;
             _player.playerFSM.SetCurrentState(PlayerFSMStateType.ATTACK);
-        }
+        }*/
 
-        /*
-        if (Input.GetButton("Fire2"))
-        {
-            PlayerFSMState_ATTACK attackState = (PlayerFSMState_ATTACK)_player.playerFSM.GetState(PlayerFSMStateType.ATTACK);
-            attackState.AttackId = 1;
-            _player.playerFSM.SetCurrentState(PlayerFSMStateType.ATTACK);
-        }
-        if (Input.GetButton("Fire3"))
-        {
-            PlayerFSMState_ATTACK attackState = (PlayerFSMState_ATTACK)_player.playerFSM.GetState(PlayerFSMStateType.ATTACK);
-            attackState.AttackId = 2;
-            _player.playerFSM.SetCurrentState(PlayerFSMStateType.ATTACK);
-        }
-        if (Input.GetButton("Crouch"))
-        {
-            _player.playerFSM.SetCurrentState(PlayerFSMStateType.CROUCH);
-        }
-        */
-
-        
     }
 
     public override void FixedUpdate()
     {
         base.FixedUpdate();
-        _player.playerMovement.Move();
-        Debug.Log("In movement function");
+
+        // when we press the attack button, this should switch to the attack state
+        // Unity input handling sends messages to functions similar to these
+        // this might need to be moved
+        void OnAttack(InputValue value)
+        {
+            if (value.isPressed == true)
+            {
+                _player.playerFSM.SetCurrentState(PlayerFSMStateType.ATTACK);
+            }
+        }
+        _player.Move();
     }
 }
 
@@ -129,8 +160,8 @@ public class PlayerFSMState_ATTACK : PlayerFSMState
     public override void Exit() {
         _player.anim.SetBool("attack", false);
     }
-    public override void Update() { 
-        
+    public override void Update() {
+        Debug.Log("In attack function");
     }
     public override void FixedUpdate() { }
 }
@@ -144,7 +175,9 @@ public class PlayerFSMState_SKILL : PlayerFSMState
 
     public override void Enter() { }
     public override void Exit() { }
-    public override void Update() { }
+    public override void Update() {
+        Debug.Log("In skill function");
+    }
     public override void FixedUpdate() { }
 }
 
@@ -157,7 +190,9 @@ public class PlayerFSMState_DEFEND : PlayerFSMState
 
     public override void Enter() { }
     public override void Exit() { }
-    public override void Update() { }
+    public override void Update() {
+        Debug.Log("In defend function");
+    }
     public override void FixedUpdate() { }
 }
 
@@ -170,7 +205,9 @@ public class PlayerFSMState_TAKE_DAMAGE : PlayerFSMState
 
     public override void Enter() { }
     public override void Exit() { }
-    public override void Update() { }
+    public override void Update() {
+        Debug.Log("In take_damage function");
+    }
     public override void FixedUpdate() { }
 }
 
@@ -187,12 +224,16 @@ public class PlayerFSMState_DEAD : PlayerFSMState
         _player.anim.SetTrigger("Die");
     }
     public override void Exit() { }
-    public override void Update() { }
+    public override void Update() {
+        Debug.Log("In dead function");
+    }
     public override void FixedUpdate() { }
 }
 
+// gives the Player class better access to the generic FSM class
 public class PlayerFSM : FiniteStateMachine<int>
 {
+    //calls the base constructor, which makes a dictionary of ints
     public PlayerFSM() : base()
     {
 
@@ -218,11 +259,17 @@ public class PlayerFSM : FiniteStateMachine<int>
     }
 }
 
-public class PlayerMovement : Entity
+public class PlayerMovement : MonoBehaviour
 {
+    // I knew the entity class was a mistake, code is way too chopped up
+    protected Vector2 direction;
+    protected Vector2 movement;
+    public Rigidbody2D body;
+    public Animator anim;
+    [SerializeField]
+    public float walkSpeedMultiplier = 1.0f; // how fast entity should walk
 
-
-    protected override void FixedUpdate()
+    protected void FixedUpdate()
     {
         Move();
     }
@@ -239,7 +286,7 @@ public class PlayerMovement : Entity
         movement = value.Get<Vector2>();
     }
 
-    protected override void RotateTowardDirection()
+    protected void RotateTowardDirection()
     {
         //turn off walking
         if (movement != Vector2.zero) // if we have player movement input
@@ -257,13 +304,23 @@ public class PlayerMovement : Entity
         }
     }
 
+    protected void Movement()
+    {
+        // get current position
+        Vector2 currentPos = body.position;
+        // calculate move delta
+        Vector2 adjustedMovement = movement * walkSpeedMultiplier;
+        // add move delta to current position
+        Vector2 newPos = currentPos + adjustedMovement * Time.fixedDeltaTime;
+        // move player to new position
+        body.MovePosition(newPos);
+    }
 }
 
 public class Player : Entity
 {
-
     public PlayerMovement playerMovement;
-    public PlayerFSM playerFSM = new PlayerFSM();
+    public PlayerFSM playerFSM = null;
     public bool attackPressed;
 
     // State is called before the first frame update
@@ -275,6 +332,7 @@ public class Player : Entity
         //create the FSM
         playerFSM = new PlayerFSM();
 
+        //add all the states we have to the fsm dictionary we created
         playerFSM.Add(new PlayerFSMState_MOVEMENT(this));
         playerFSM.Add(new PlayerFSMState_ATTACK(this));
         playerFSM.Add(new PlayerFSMState_SKILL(this));
@@ -282,29 +340,35 @@ public class Player : Entity
         playerFSM.Add(new PlayerFSMState_TAKE_DAMAGE(this));
         playerFSM.Add(new PlayerFSMState_DEAD(this));
 
+        //set the state to movement by default
         playerFSM.SetCurrentState(PlayerFSMStateType.MOVEMENT);
     }
 
-    // Update is called once per frame
-    void Update()
+    // call the current state's FixedUpdate()
+    // Update() is called once per frame
+    // e: ^^this is a lie, it's like 200 times a second, use for input
+    protected void Update()
     {
        playerFSM.Update();
     }
 
-    /*
-    void FixedUpdate()
+    // call the current state's FixedUpdate()
+    // e: vv this is like 50 times a second, use for physics
+    protected override void FixedUpdate()
     {
         playerFSM.FixedUpdate();
     }
-    */
-    
+
+
+    /*
     protected override void FixedUpdate()
     {
-        Move();
+        playerMovement.Move();
     }
-    
+    */
 
-    void Move()
+    // these move functions will stay here until they start working in the playermovement class
+    public void Move()
     {
         RotateTowardDirection();
         Movement();
@@ -338,12 +402,4 @@ public class Player : Entity
             anim.SetBool("walking", false);
         }
     }
-
-    /*
-    public abstract void attack_button();
-    public abstract void defense_button();
-    public abstract void item_use();
-    public abstract void skill_button();
-    */
-
 }

@@ -1,12 +1,15 @@
+// Michael D'Agostino
+// Elijah made this by just conglomerating functions from Michael's old player classes into a useful base class
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-//elijah made this by just conglomerating functions from michael's player classes into a useful base class
-
 
 public class Entity : MonoBehaviour
 {
+    // Entity utilizes terms from MonoBehaviour, a critical class from the Unity library. Because Entity has not overridden anything from MonoBehaviour, Entity is a subtype of MonoBehaviour
+    // Almost all base classes made for a Unity project will inherit MonoBehaviour, as MonoBehaviour is the class that enables object to use the Unity engine. 
+
     // fields
     protected Vector2 direction;
     protected Vector2 movement;
