@@ -24,6 +24,7 @@ public class EnemySpawner : MonoBehaviour
     private GameObject enemy; // This grabs the enemy's game object from the list and stores it
     private Transform enemySpawn; // This stores the transform of the chosen spawn zone
 
+    [SerializeField]
     private int spawnDelay = 3; // Amount of time between each enemy spawn 
     private float timer = 0.0f; // Holds how many seconds have passed
     private bool isSpawning = false; // Records when an enemy is spawning so we dont have multiple spawning each frame one is supposed to spawn.
@@ -40,7 +41,7 @@ public class EnemySpawner : MonoBehaviour
     {
         timer += Time.deltaTime;        // each frame, add how much time has passed.
         
-        if (isSpawning == false)
+        if (!isSpawning)
         {
             if (timer > spawnDelay)  // if we should not be currently delaying,
             {
@@ -53,17 +54,17 @@ public class EnemySpawner : MonoBehaviour
     // FixedUpdate is called at a fixed interval, not always once per frame.
     void FixedUpdate()
     {
-        if (isSpawning == true)
+        if (isSpawning)
         {
             SpawnEnemy();
+            isSpawning = false;
         }
     }
 
     void SpawnEnemy()
     {
-        while (enemiesSpawned < spawnAmount)
+        if (enemiesSpawned < spawnAmount)
         {
-            isSpawning = false;
             chosenSpawn = Random.Range(0, spawnListSize - 1);   // grabs a random index of the list
             chosenEnemy = Random.Range(0, enemyListSize - 1);
 
