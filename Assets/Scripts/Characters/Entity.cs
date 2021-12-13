@@ -42,12 +42,8 @@ public class Entity : MonoBehaviour
     public float runSpeedMultiplier = 1.3f; // runSpeed for when it's implemented
     [SerializeField]
     private float attackMod = 1.0f; // mod for physical attacks
-    //[SerializeField]
-    // private float magicMod = 1.0f; // mod for magic-based attacks
     [SerializeField]
     private float defenseMod = 1.0f; // physical defense modifier
-    //[SerializeField]
-    // private float defenseModMagic = 1.0f; // possible alt defmod for magic-property attacks
     //[SerializeField]
     //private float attackSpeed; // how long until player can attack again
 
