@@ -60,6 +60,7 @@ public class Slime : Enemy
         // add all the enemy states to the FSM dictionary
         enemyFSM.Add(new SlimeFSMState_Idle(this));
         enemyFSM.Add(new SlimeFSMState_Movement(this));
+        enemyFSM.Add(new EnemyFSMState_Dead(this));
 
         // set the state to idle by default
         enemyFSM.SetCurrentState(EnemyFSMStateType.IDLE);
