@@ -194,7 +194,39 @@ MonoBehaviour:
   m_ControlsChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-  m_ActionEvents: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 11500000, guid: 5532044627c7a3142ab039787275db1a, type: 3}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 978848d5-099d-4cec-aad7-56e8a018093a
+    m_ActionName: Player/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e0f29b52-a4eb-4a55-a6a9-6b3c2052df2e
+    m_ActionName: Player/Attack[/Keyboard/j]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 17bdb589-83d6-4f1b-9a31-18f601e0c0a2
+    m_ActionName: Player/Defend[/Keyboard/k]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 28ed756f-54c7-40be-89ea-249bd556f027
+    m_ActionName: Player/Skill_1[/Keyboard/u,/Keyboard/shift,/Keyboard/j]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 8e0bb66e-e3c6-4695-8b90-3f83b621ef74
+    m_ActionName: Player/Skill_2[/Keyboard/i,/Keyboard/shift,/Keyboard/k]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -212,4 +244,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c6c9387e32c08f4398ad3843ace75d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 0.75
+  body: {fileID: 5301731976621060611}
+  anim: {fileID: -4185230286295294114}
+  healthTotal: 100
+  health: 0
+  magicPointsTotal: 20
+  magicPoints: 20
+  level: 1
+  walkSpeedMultiplier: 1
+  runSpeedMultiplier: 1.3
+  attackMod: 1
+  defenseMod: 1
+  playerMovement: {fileID: 0}
+  attackPressed: 0
+  healthbar: {fileID: 0}
