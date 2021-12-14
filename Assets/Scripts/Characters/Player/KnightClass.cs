@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class KnightClass : PlayerMovement
+public class KnightClass : Player
 {
     public HealthBar healthbar;
     // Start is called before the first frame update

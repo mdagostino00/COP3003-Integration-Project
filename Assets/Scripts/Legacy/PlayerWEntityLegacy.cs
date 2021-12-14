@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerWEntity : Entity
+public class PlayerWEntityLegacy : EntityLegacy
 {
     //methods
     protected override float GetMovX() { return moveSpeed * Input.GetAxisRaw("Horizontal"); }

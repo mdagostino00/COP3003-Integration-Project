@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerStats : MonoBehaviour
+public class EntityObject : MonoBehaviour
 {
     // base health and magic
     [SerializeField]
@@ -34,15 +34,15 @@ public class PlayerStats : MonoBehaviour
     private int experiencePoints = 0;
 
     // passive modifiers
-    [SerializeField]
+    //[SerializeField]
     private float walkSpeedMultiplier = 1.0f; // how fast player should walk
     //[SerializeField]
     // private float runSpeedMultiplier = 1.2f; // runSpeed for when it's implemented
-    [SerializeField]
+    //[SerializeField]
     private float attackMod = 1.0f; // mod for physical attacks
     //[SerializeField]
     // private float magicMod = 1.0f; // mod for magic-based attacks
-    [SerializeField]
+    //[SerializeField]
     private float defenseMod = 1.0f; // physical defense modifier
     //[SerializeField]
     // private float defenseModMagic = 1.0f; // possible alt defmod for magic-property attacks
@@ -57,12 +57,35 @@ public class PlayerStats : MonoBehaviour
     public int Level { get => level; set => level = value; }
     public float DefenseMod { get => defenseMod; set => defenseMod = value; }
     public int ExperiencePoints { get => experiencePoints; set => experiencePoints = value; }
+    public float AttackMod { get => attackMod; set => attackMod = value; }
+
+    public int DamageCalculate(int baseDamage)
+    {
+        int modifiedDamage = (int)(baseDamage * attackMod);
+        return modifiedDamage;
+    }
 
     public int HealthReduce(int damageValue)
     {
-        damageValue = (int)(damageValue * DefenseMod); // multiply damage value by player defense
+        //damageValue = (int)(damageValue * DefenseMod); // multiply damage value by player defense
         this.health -= damageValue; // subtract modified damage from health
         return damageValue; // return if print damage needed
+    }
+
+    public int HealthHeal(int healValue)
+    {
+        if (healValue < 1)
+        {
+            healValue = 1;
+            Debug.Log("This healing item healed for less than 1 HP\n");
+        }
+        int healMax = healthTotal - health;
+        if (healValue > healMax)
+        {
+            healValue = healMax;
+        }
+        this.health += healValue;
+        return healValue; // return value if heal number needed
     }
 
     public int HealthHeal(int healValue, char healType)
@@ -72,23 +95,34 @@ public class PlayerStats : MonoBehaviour
             // choose small, medium, large, or x-large potion types.
             // default to 1 if no type or less than 1
             case 's':
-                healValue = (int)(healValue * 0.6);
+                healValue = (int)(healValue * 0.7);
                 break;
             case 'm':
+                //healValue = (int)(healValue * 1.0);
                 break;
             case 'l':
-                healValue = (int)(healValue * 1.3);
+                healValue = (int)(healValue * 1.4);
                 break;
             case 'x':
-                healValue = (int)(healValue * 1.5);
+                healValue = (int)(healValue * 2.0);
                 break;
             default:
                 healValue = 1;
-                Debug.Log("This healing item doesn't have a healType");
+                Debug.Log("This healing item doesn't have a healType\n");
                 break;
         }
-        if (healValue < 1)
+        if (healValue < 1) {  // minimum healing value = 1
             healValue = 1;
+            Debug.Log("This healing item healed for less than 1 HP\n");
+        }
+
+        int healMax = healthTotal - health;  //check to see if healValue is more than max health
+        if (healValue > healMax)
+        {
+            healValue = healMax;  // set healValue to most health that can be healed
+        }
+
+        this.health += healValue; // heal the player
         return healValue; // return value if heal number needed
     }
 }
