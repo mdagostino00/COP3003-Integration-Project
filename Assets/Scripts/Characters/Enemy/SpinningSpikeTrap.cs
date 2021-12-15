@@ -15,7 +15,7 @@ public class SpinningSpikeTrap : Enemy
 
     /// <summary>
     /// This function reverses the direction the object is moving when it collides with something.
-    /// The GameObject this is attached to is set to only collide with walls and the player. 
+    /// The GameObject this is attached to is set to only collide with walls. 
     /// </summary>
     /// <param name="col"></param>
     protected override void OnCollisionEnter2D(Collision2D col)  // if they hit something

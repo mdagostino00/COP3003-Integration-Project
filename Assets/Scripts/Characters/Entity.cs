@@ -62,7 +62,6 @@ public class Entity : MonoBehaviour
     {
         body = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-        CurrentHealth = HealthTotal;
     }
 
     // FixedUpdate is called at a fixed interval, not always once per frame.
