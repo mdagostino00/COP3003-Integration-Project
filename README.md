@@ -1,11 +1,10 @@
 ﻿# JRPG FTW
 This is a top-down Diablo-like dungeon-crawler with a planned selectable class system, customizable level-up system, and randomized levels and item drops. It will have a discoverable map and real-time HUD with an active inventory management system and an optional story. Hopefully, it will have support for multiplayer in the future. We are making a game for our Programming II (Object Oriented Programming) integration project. This project is a collaboration between Michael DAgostino, Elijah Nieves, and Robert McNiven. We are using Unity game engine and mainly collaborated over Discord and in school.
 
-<<<<<<< HEAD
-=======
+
 # JRPG FTW Unity Game
 We are making a game for our Programming II integration project. This project is a collaboration between Michael DAgostino, Elijah Nieves, and Robert McNiven. 
->>>>>>> 63949faf0c35406ac8c45e7156d8141cef8add8f
+
 
 ## Demonstration
 [Starting Up](ReadmeImages/giphy.mp4)
