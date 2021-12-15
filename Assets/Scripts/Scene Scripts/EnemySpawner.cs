@@ -1,7 +1,14 @@
+// Elijah Nieves
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// This class holds the responsibility of spawning a predetermined amount of enemies,
+/// from a predetermined list of enemys, at predetermined locations, at a predetermined rate.
+/// This class will most likely never be inherited from so everything is private.
+/// </summary>
 public class EnemySpawner : MonoBehaviour
 {
     [SerializeField]
@@ -30,14 +37,14 @@ public class EnemySpawner : MonoBehaviour
     private bool isSpawning = false; // Records when an enemy is spawning so we dont have multiple spawning each frame one is supposed to spawn.
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         enemyListSize = enemyPrefabs.Count;
         spawnListSize = spawnZones.Count;
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         timer += Time.deltaTime;        // each frame, add how much time has passed.
         
@@ -52,7 +59,7 @@ public class EnemySpawner : MonoBehaviour
     }
     
     // FixedUpdate is called at a fixed interval, not always once per frame.
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         if (isSpawning)
         {
@@ -61,12 +68,12 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    void SpawnEnemy()
+    private void SpawnEnemy()
     {
         if (enemiesSpawned < spawnAmount)
         {
-            chosenSpawn = Random.Range(0, spawnListSize - 1);   // grabs a random index of the list
-            chosenEnemy = Random.Range(0, enemyListSize - 1);
+            chosenSpawn = Random.Range(0, spawnListSize);   // grabs a random index of the list
+            chosenEnemy = Random.Range(0, enemyListSize);
 
             Instantiate(enemyPrefabs[chosenEnemy], spawnZones[chosenSpawn].transform.position, transform.rotation);     // creates an enemy of the chose type at the chose spawn zone's location
 
