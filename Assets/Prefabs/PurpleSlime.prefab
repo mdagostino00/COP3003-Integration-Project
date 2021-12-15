@@ -166,8 +166,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   body: {fileID: 0}
   anim: {fileID: 0}
-  healthTotal: 20
-  currentHealth: 20
+  healthTotal: 100
+  currentHealth: 0
   magicPointsTotal: 20
   magicPoints: 20
   level: 1
