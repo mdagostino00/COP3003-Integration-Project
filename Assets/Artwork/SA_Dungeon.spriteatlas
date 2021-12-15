@@ -127,6 +127,12 @@ SpriteAtlas:
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
+  - {fileID: 3075220411332774505, guid: 17553423d9256af469888903a318fbb6, type: 3}
+  - {fileID: 4454518141382562366, guid: 17553423d9256af469888903a318fbb6, type: 3}
+  - {fileID: -2893801306112591740, guid: 17553423d9256af469888903a318fbb6, type: 3}
+  - {fileID: 1305316390023214012, guid: 17553423d9256af469888903a318fbb6, type: 3}
+  - {fileID: 6513884312199690905, guid: 17553423d9256af469888903a318fbb6, type: 3}
+  - {fileID: 3523464982105242779, guid: 17553423d9256af469888903a318fbb6, type: 3}
   - {fileID: -5076604359874573457, guid: 2eaf2457a16151b41ba8e413aec4e996, type: 3}
   - {fileID: 3031968657911588155, guid: 2eaf2457a16151b41ba8e413aec4e996, type: 3}
   - {fileID: 8076167133347541446, guid: 2eaf2457a16151b41ba8e413aec4e996, type: 3}
@@ -210,6 +216,12 @@ SpriteAtlas:
   - {fileID: 7523621442351911079, guid: 26c083fb02bd2a24ab98860a3ae6a1c1, type: 3}
   - {fileID: -2422730375314409053, guid: 26c083fb02bd2a24ab98860a3ae6a1c1, type: 3}
   m_PackedSpriteNamesToIndex:
+  - KnightWalk1
+  - KnightWalk0
+  - KnightWalk3
+  - KnightWalk2
+  - KnightAttack0
+  - KnightAttack1
   - KnightWalking_0
   - KnightWalking_1
   - KnightWalking_2

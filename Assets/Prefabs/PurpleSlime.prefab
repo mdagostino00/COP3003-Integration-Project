@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 4964576319989984571}
   - component: {fileID: 4964576319989984570}
   - component: {fileID: 4964576319989984574}
-  m_Layer: 9
+  m_Layer: 11
   m_Name: PurpleSlime
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -29,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4964576319989984572}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.806, y: -0.315, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -75,7 +75,8 @@ SpriteRenderer:
   m_SortingLayerID: -1333166927
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: -4945968392062809684, guid: 26c083fb02bd2a24ab98860a3ae6a1c1, type: 3}
+  m_Sprite: {fileID: -4945968392062809684, guid: 26c083fb02bd2a24ab98860a3ae6a1c1,
+    type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
@@ -167,7 +168,7 @@ MonoBehaviour:
   body: {fileID: 0}
   anim: {fileID: 0}
   healthTotal: 100
-  health: 1
+  currentHealth: 0
   magicPointsTotal: 20
   magicPoints: 20
   level: 1
@@ -175,7 +176,7 @@ MonoBehaviour:
   runSpeedMultiplier: 1.3
   attackMod: 1
   defenseMod: 1
-  timer: 0
+  isMoving: 0
   moveDelay: 0.75
   moveLength: 0.5
   target: {fileID: 0}

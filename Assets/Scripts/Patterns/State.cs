@@ -15,7 +15,7 @@ namespace Patterns
 
         public State()
         {
-            Debug.Log("I think something went wrong in the parameterless State() constructor.");
+            //Debug.Log("I think something went wrong in the parameterless State() constructor.");
         }
 
         public State(FiniteStateMachine<T> fsm)
@@ -35,8 +35,6 @@ namespace Patterns
 
         // delegates are basically C# function pointers from C++
         // a delegate is a reference type variable that holds the reference to a method.
-        //  - this likely satisfies the dynamic dispatch requirement, as C# hates pointers,
-        //    and this is the closest thing to 
         public delegate void DelegateNoArg();
 
         public DelegateNoArg OnEnter;
