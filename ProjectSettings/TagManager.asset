@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Wall
+  - Enemy
+  - SwordHitbox
   layers:
   - Default
   - TransparentFX
@@ -16,9 +18,9 @@ TagManager:
   - Blocking
   - Piercing
   - Actor
-  - 
-  - 
-  - 
+  - ActorHitbox
+  - Enemy
+  - EnemyHitbox
   - 
   - 
   - 

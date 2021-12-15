@@ -9,12 +9,5 @@ public class KnightClass : Player
     void Start()
     {
         Debug.Log("Knight has been created!");
-        
-
-    }
-
-    void TakeDamage(int damage)
-    {
-        healthbar.SetHealth(damage);
     }
 }

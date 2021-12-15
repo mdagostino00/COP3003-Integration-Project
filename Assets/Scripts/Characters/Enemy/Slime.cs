@@ -1,4 +1,5 @@
 // Elijah Nieves
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -23,11 +24,11 @@ public class Slime : Enemy
 
             thisEnemy.timer += Time.deltaTime;          // each frame, add how much time has passed.
 
-            if (thisEnemy.timer >= thisEnemy.moveDelay)     // and they have been delayed long enough
+            if (thisEnemy.timer >= thisEnemy.MoveDelay)     // and they have been delayed long enough
             {
                 thisEnemy.timer = 0.0f;           // reset the timer
                 thisEnemy.enemyFSM.SetCurrentState(EnemyFSMStateType.MOVEMENT);        // set them to start moving
-                thisEnemy.isMoving = true;
+                thisEnemy.IsMoving = true;
             }
         }
     }
@@ -45,21 +46,21 @@ public class Slime : Enemy
 
             thisEnemy.timer += Time.deltaTime;        // each frame, add how much time has passed.
 
-            if (thisEnemy.timer >= thisEnemy.moveLength)    // and if they have been moving for long enough
+            if (thisEnemy.timer >= thisEnemy.MoveLength)    // and if they have been moving for long enough
             {
                 thisEnemy.timer = 0.0f;           // reset the timer
                 thisEnemy.enemyFSM.SetCurrentState(EnemyFSMStateType.IDLE);        // set them to stop moving
-                thisEnemy.isMoving = false;
+                thisEnemy.IsMoving = false;
             }
         }
     }
-
 
     protected override void MakeFSMDictionary()
     {
         // add all the enemy states to the FSM dictionary
         enemyFSM.Add(new SlimeFSMState_Idle(this));
         enemyFSM.Add(new SlimeFSMState_Movement(this));
+        enemyFSM.Add(new EnemyFSMState_TakeDamage(this));
         enemyFSM.Add(new EnemyFSMState_Dead(this));
 
         // set the state to idle by default

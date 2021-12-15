@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5222869614660754907}
   m_Layer: 8
   m_Name: Spinning Spike Trap
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -97,19 +97,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 007127264edee154ea7910759887f98b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  body: {fileID: 0}
+  body: {fileID: 5222869614660754907}
   anim: {fileID: 0}
   healthTotal: 100
-  health: 0
-  magicPointsTotal: 20
-  magicPoints: 20
+  currentHealth: 0
+  magicPointsTotal: 0
+  magicPoints: 0
   level: 1
   walkSpeedMultiplier: 1
   runSpeedMultiplier: 1.3
   attackMod: 1
   defenseMod: 1
   isMoving: 1
-  timer: 0
   moveDelay: 2
   moveLength: 1
   target: {fileID: 0}
@@ -159,4 +158,4 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 2
