@@ -10,7 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5784151160825473655}
   - component: {fileID: 5784151160825473654}
-  - component: {fileID: 5784151160825473653}
+  - component: {fileID: -2686221398673601795}
+  - component: {fileID: -6842261476002644224}
   m_Layer: 0
   m_Name: EnemySpawner
   m_TagString: Untagged
@@ -53,7 +54,7 @@ MonoBehaviour:
   - {fileID: 4964576319989984572, guid: da216219f72658a49858d3e8292e8e25, type: 3}
   - {fileID: 1627819514299995808, guid: 6a5dc935ef48ec64188858edb39ecbe0, type: 3}
   spawnDelay: 3
---- !u!212 &5784151160825473653
+--- !u!212 &-2686221398673601795
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -93,14 +94,35 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.2, y: 0.2}
+  m_Size: {x: 0.16, y: 0.16}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!50 &-6842261476002644224
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5784151160825473652}
+  m_BodyType: 2
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
