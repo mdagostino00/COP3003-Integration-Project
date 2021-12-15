@@ -236,6 +236,9 @@ TextureImporter:
   - first:
       213: -4945968392062809684
     second: enemy_purple_mini
+  - first:
+      213: 6799088611575256703
+    second: Masked_Enemy
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -1958,6 +1961,27 @@ TextureImporter:
       bones: []
       spriteID: ca949c8c3f36c5bb0800000000000000
       internalID: -4945968392062809684
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Masked_Enemy
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 80
+        width: 12
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f76d851b1173b5e50800000000000000
+      internalID: 6799088611575256703
       vertices: []
       indices: 
       edges: []
