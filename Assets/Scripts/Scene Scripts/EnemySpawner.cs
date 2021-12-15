@@ -95,7 +95,6 @@ public class EnemySpawner : MonoBehaviour
             {
                 chosenSpawn = Random.Range(0, spawnListSize);   // grabs a random index of the list
                 chosenEnemy = Random.Range(0, enemyListSize);
-
                 Instantiate(enemyPrefabs[chosenEnemy], spawnZones[chosenSpawn].transform.position, transform.rotation);     // creates an enemy of the chose type at the chose spawn zone's location
 
                 totalEnemiesSpawned++;

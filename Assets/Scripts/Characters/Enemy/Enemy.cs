@@ -209,7 +209,6 @@ public class Enemy : Entity
                 Destroy(thisEnemy.gameObject);
             thisEnemy.enemyFSM.SetCurrentState((EnemyFSMStateType) 0);      // return it to the default state
         }
-
     }
 
     /// <summary>
