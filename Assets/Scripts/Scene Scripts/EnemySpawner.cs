@@ -12,16 +12,28 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     [SerializeField]
+    private bool endlessSpawn = false;      // To check whether there should be a maximum amount of enemies spawned
+    
+    [SerializeField]
     private int totalSpawnAmount; // How many enemies will spawn from this spawner stored via Unity Editor
 
     [SerializeField]
     private int enemiesPerSpawn; // How many enemies will spawn during each spawning instance
 
     [SerializeField]
+    private bool monsterSpawningMonster = false;      // To check if the spawner is actually a monster which spawns other monsters
+
+    [SerializeField]
     private List<Transform> spawnZones = new List<Transform>(); // Dedicated spawn zone locations stored in the list via Unity Editor
 
     [SerializeField]
     private List<GameObject> enemyPrefabs = new List<GameObject>(); // Allowed enemy prefabs will be stored in the list via Unity Editor
+
+    [SerializeField]
+    private bool sequentialSpawnZones = false;      // Sets the spawner to choose spawn locations in order
+
+    [SerializeField]
+    private bool sequentialEnemySpawns = false;      // Sets the spawner to choose spawned enemies in order
 
     private bool isAwake = false;   // If the spawner is 'activated.' Player touching the collider activates it
 
@@ -30,8 +42,8 @@ public class EnemySpawner : MonoBehaviour
     private int enemyListSize;  // Stores the size of the enemy list to use as a bound later.
     private int spawnListSize;  // Stores the size of the spawn list to use as a bound later.
 
-    private int chosenSpawn; // This chooses a random number to pick from the spawn zones
-    private int chosenEnemy; // This chooses a random number to pick from the enemies array
+    private int chosenSpawn = 0; // This chooses a random number to pick from the spawn zones
+    private int chosenEnemy = 0; // This chooses a random number to pick from the enemies array
 
     private GameObject enemy; // This grabs the enemy's game object from the list and stores it
     private Transform enemySpawn; // This stores the transform of the chosen spawn zone
@@ -43,7 +55,7 @@ public class EnemySpawner : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D col)  // if they hit something
     {
-        if (col.gameObject.tag == "Player")
+        if (col.gameObject.tag == "Player" && !monsterSpawningMonster)      // if its a player and the spawner is not a monster 
         {
             isAwake = true;         // activates the spawner to start spawning
             gameObject.GetComponent<BoxCollider2D>().enabled = false;   // turns off the physical spawner collider
@@ -56,7 +68,10 @@ public class EnemySpawner : MonoBehaviour
         enemyListSize = enemyPrefabs.Count;
         spawnListSize = spawnZones.Count;
 
-        timer = (float)spawnDelay;     //  makes it so the spawner will spawn an enemy immediately upon awaking
+        if (monsterSpawningMonster)
+            isAwake = true;             // monsters will start already spawning monsters
+        else
+            timer = (float)spawnDelay;     //  makes it so the spawner will spawn an enemy immediately upon awaking
     }
 
     // Update is called once per frame
@@ -89,17 +104,43 @@ public class EnemySpawner : MonoBehaviour
 
     private void SpawnEnemy()
     {
-        if (totalEnemiesSpawned < totalSpawnAmount)
+        if ((totalEnemiesSpawned < totalSpawnAmount) || endlessSpawn)
         {
             for (int i = 0; i < enemiesPerSpawn; i++)
             {
-                chosenSpawn = Random.Range(0, spawnListSize);   // grabs a random index of the list
-                chosenEnemy = Random.Range(0, enemyListSize);
+                ChooseSpawnZone();
+                ChooseSpawnedEnemy();
 
                 Instantiate(enemyPrefabs[chosenEnemy], spawnZones[chosenSpawn].transform.position, transform.rotation);     // creates an enemy of the chose type at the chose spawn zone's location
 
                 totalEnemiesSpawned++;
             }
         }
+    }
+
+    private void ChooseSpawnZone()
+    {
+        if (sequentialSpawnZones)
+        {
+            if (chosenSpawn < spawnListSize - 1)
+                chosenSpawn++;
+            else
+                chosenSpawn = 0;
+        }
+        else
+            chosenSpawn = Random.Range(0, spawnListSize);   // grabs a random index of the list
+    }
+
+    private void ChooseSpawnedEnemy()
+    {
+        if (sequentialEnemySpawns)
+        {
+            if (chosenEnemy < enemyListSize - 1)
+                chosenEnemy++;
+            else
+                chosenEnemy = 0;
+        }
+        else
+            chosenEnemy = Random.Range(0, enemyListSize);   // grabs a random index of the list
     }
 }
