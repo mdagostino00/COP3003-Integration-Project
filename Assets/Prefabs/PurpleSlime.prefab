@@ -164,8 +164,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc0c4ab6efb100e4989e78620e619830, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  body: {fileID: 0}
-  anim: {fileID: 0}
+  body: {fileID: 4964576319989984571}
+  anim: {fileID: 4964576319989984570}
   healthTotal: 20
   currentHealth: 20
   magicPointsTotal: 20

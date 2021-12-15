@@ -44,8 +44,8 @@ public class Enemy : Entity
     /// </summary>
     public enum EnemyFSMStateType
     {
-        IDLE = 0,
-        MOVEMENT,
+        MOVEMENT = 0,
+        IDLE,
         ATTACK,
         TAKE_DAMAGE,  // not used yet, as no animation for this state
         DEAD,
@@ -317,8 +317,8 @@ public class Enemy : Entity
         enemyFSM.Add(new EnemyFSMState_TakeDamage(this));
         enemyFSM.Add(new EnemyFSMState_Dead(this));
 
-        // set the state to idle by default
-        enemyFSM.SetCurrentState(EnemyFSMStateType.IDLE);
+        // set the state to moving by default
+        enemyFSM.SetCurrentState(EnemyFSMStateType.MOVEMENT);
     }
 
     /// <summary>

@@ -1,17 +1,10 @@
-// Elijah Nieves
-
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-/// <summary>
-/// This script is to be used for a simple 'enemy' which bounces back and forth. 
-/// It is less of an enemy and more of an obstacle for the player.
-/// </summary>
-public class SpinningSpikeTrap : Enemy
+public class GiantEnemySpider : Enemy
 {
     protected Vector2 right;
-    protected bool startsMovingRight = true;
 
     /// <summary>
     /// This function reverses the direction the object is moving when it collides with something.
@@ -20,6 +13,7 @@ public class SpinningSpikeTrap : Enemy
     /// <param name="col"></param>
     protected override void OnCollisionEnter2D(Collision2D col)  // if they hit something
     {
+        base.OnCollisionEnter2D(col);
         direction *= -1;        // reverse the direction
     }
 
@@ -36,10 +30,7 @@ public class SpinningSpikeTrap : Enemy
         // initialize vectors
         right = new Vector2(1f, 0f);
 
-        if (startsMovingRight)
-            this.direction = right;         // set it to move right
-        else
-            this.direction = right * -1;     // set it to move left
+        this.direction = right;         // set it to move right
 
         enemyFSM.SetCurrentState(EnemyFSMStateType.MOVEMENT);           //set it to move
     }
@@ -53,9 +44,7 @@ public class SpinningSpikeTrap : Enemy
     /// </summary>
     protected override void Update()
     {
-        body.AddTorque(10 * Time.deltaTime);
         enemyFSM.Update();              // dont allow it to change directions
     }
-
-
 }
+
