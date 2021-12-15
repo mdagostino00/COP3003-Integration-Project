@@ -3,7 +3,7 @@ This is a top-down Diablo-like dungeon-crawler with a planned selectable class s
 
 
 ## Demonstration
-[Starting Up](ReadmeImages/giphy.mp4)
+[Starting Up](COP3003-Integration-Project/ReadmeImages/giphy.mp4)
 
 
 ## Documentation
@@ -12,7 +12,7 @@ For this game we wrote all of our scripts in C#. We are using standard formattin
 
 ## Diagrams
 This is our initial class diagram for the Entity parent class and its children:
-[Entity](ReadmeImages/BeginningClassDiagram.png)
+[Entity](COP3003-Integration-Project/ReadmeImages/BeginningClassDiagram.PNG)
 
 
 ## Getting Started
