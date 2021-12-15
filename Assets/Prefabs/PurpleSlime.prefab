@@ -75,7 +75,8 @@ SpriteRenderer:
   m_SortingLayerID: -1333166927
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: -4945968392062809684, guid: 26c083fb02bd2a24ab98860a3ae6a1c1, type: 3}
+  m_Sprite: {fileID: -4945968392062809684, guid: 26c083fb02bd2a24ab98860a3ae6a1c1,
+    type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
@@ -166,8 +167,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   body: {fileID: 0}
   anim: {fileID: 0}
-  healthTotal: 20
-  currentHealth: 20
+  healthTotal: 100
+  currentHealth: 0
   magicPointsTotal: 20
   magicPoints: 20
   level: 1

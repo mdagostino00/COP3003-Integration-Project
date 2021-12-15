@@ -282,17 +282,13 @@ public class PlayerFSMState_TAKE_DAMAGE : PlayerFSMState
         _id = PlayerFSMStateType.TAKE_DAMAGE;
     }
 
-    public override void Enter() {
-        _player.HealthReduce(10);
-    }
+    public override void Enter() { }
     public override void Exit() { }
     public override void Update()
     {
         Debug.Log("In take_damage function");
     }
-    public override void FixedUpdate() {
-        _player.playerFSM.SetCurrentState(PlayerFSMStateType.MOVEMENT);
-    }
+    public override void FixedUpdate() { }
 }
 
 /// <summary>
@@ -308,17 +304,15 @@ public class PlayerFSMState_DEAD : PlayerFSMState
     public override void Enter()
     {
         Debug.Log("Player dead");
-        _player.anim.SetTrigger("die");
+        _player.anim.SetTrigger("Die");
         //Destroy(_player);
     }
     public override void Exit() { }
     public override void Update()
     {
-        Debug.Log("In dead function");
+        //Debug.Log("In dead function");
     }
-    public override void FixedUpdate() {
-        Debug.Log("Player also dead");
-    }
+    public override void FixedUpdate() { }
 }
 
 /// <summary>
@@ -407,16 +401,9 @@ public class Player : Entity
     {
         if (collision.gameObject.tag == "Enemy")
         {
-            Debug.Log("Player Hit");
-            if (this.CurrentHealth > 0)
-            {
-                playerFSM.SetCurrentState(PlayerFSMStateType.TAKE_DAMAGE);
-            }
-            if (this.CurrentHealth == 0) {
-                playerFSM.SetCurrentState(PlayerFSMStateType.DEAD);
-            }
-            //this.HealthReduce(10);
+            this.HealthReduce(10);
             //Destroy(gameObject);
+            Debug.Log("Player Hit");
         }
     }
 
