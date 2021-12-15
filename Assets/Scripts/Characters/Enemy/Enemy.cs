@@ -1,4 +1,5 @@
 // Elijah Nieves
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -73,7 +74,7 @@ public class Enemy : Entity
             thisEnemy = enemy;
         }
 
-        // convenience constructor with just Enemy as a parameter
+        // LO1b. Overloaded convenience constructor with just Enemy as a parameter
         /// <summary>
         /// This function gives the FSM an Enemy object to access the Enemy's fields through. Named thisEnemy.
         /// </summary>
@@ -132,6 +133,16 @@ public class Enemy : Entity
         {
             _id = EnemyFSMStateType.IDLE;
         }
+
+        /// <summary>
+        /// This function is called every frame and checks the isMoving bool. If its true, the State is set to MOVEMENT
+        /// </summary>
+        public override void Update()
+        {
+            base.Update();
+            if (thisEnemy.IsMoving)
+                thisEnemy.enemyFSM.SetCurrentState(EnemyFSMStateType.MOVEMENT);
+        }
     }
 
     /// <summary>
@@ -171,6 +182,7 @@ public class Enemy : Entity
         {
             _id = EnemyFSMStateType.ATTACK;
         }
+
     }
 
     /// <summary>
@@ -187,6 +199,14 @@ public class Enemy : Entity
         {
             _id = EnemyFSMStateType.TAKE_DAMAGE;
         }
+
+        public override void Enter()
+        {
+            base.Enter();
+            Debug.Log("take damage");
+            thisEnemy.enemyFSM.SetCurrentState((EnemyFSMStateType) 0);      // return it to the default state
+        }
+
     }
 
     /// <summary>
@@ -230,12 +250,13 @@ public class Enemy : Entity
         }
 
         /// <summary>
-        /// 
+        /// Using an input key, returns an object of that state
         /// </summary>
         /// <param name="key"> The enumerated State key which describes the State the object is in. i.e IDLE, MOVEMENT, DEAD, etc </param>
         /// <returns></returns>
         public EnemyFSMState GetState(EnemyFSMStateType key)
         {
+            // calls an overloaded function from the base class
             return (EnemyFSMState)GetState((int)key);
         }
 
@@ -318,7 +339,7 @@ public class Enemy : Entity
     {
         direction = target.position - transform.position; // find direction vector from enemy to player
         RotateTowardDirection(); // rotate enemy sprite to face player
-        direction.Normalize(); ; // normalize the direction vector and set this to the movement vector
+        moveCharacter(ref direction); // normalize the direction vector and set this to the movement vector
     }
 
     /// <summary>
@@ -328,5 +349,22 @@ public class Enemy : Entity
     protected override void FixedUpdate()
     {
         enemyFSM.FixedUpdate();
+    }
+
+    public void moveCharacter(ref Vector2 direction)
+    {
+
+        direction.Normalize(); // really cool vector normalization function in Unity
+        movement = direction; // Vector2D movement is now the normalized vector
+    }
+
+    protected override void OnCollisionEnter2D(Collision2D col)  // if they hit something
+    {
+        if (col.gameObject.tag == "SwordHitbox")
+        {
+            // EnemyFSMStateType previousState = (EnemyFSMStateType)enemyFSM.GetCurrentState().ID;
+            enemyFSM.SetCurrentState(EnemyFSMStateType.TAKE_DAMAGE);
+            // enemyFSM.SetCurrentState(previousState); 
+        }
     }
 }

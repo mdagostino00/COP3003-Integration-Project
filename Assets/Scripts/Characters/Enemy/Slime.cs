@@ -1,4 +1,5 @@
 // Elijah Nieves
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -54,12 +55,12 @@ public class Slime : Enemy
         }
     }
 
-
     protected override void MakeFSMDictionary()
     {
         // add all the enemy states to the FSM dictionary
         enemyFSM.Add(new SlimeFSMState_Idle(this));
         enemyFSM.Add(new SlimeFSMState_Movement(this));
+        enemyFSM.Add(new EnemyFSMState_TakeDamage(this));
         enemyFSM.Add(new EnemyFSMState_Dead(this));
 
         // set the state to idle by default

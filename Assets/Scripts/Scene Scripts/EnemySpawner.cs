@@ -1,3 +1,5 @@
+// Elijah Nieves
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -70,8 +72,8 @@ public class EnemySpawner : MonoBehaviour
     {
         if (enemiesSpawned < spawnAmount)
         {
-            chosenSpawn = Random.Range(0, spawnListSize - 1);   // grabs a random index of the list
-            chosenEnemy = Random.Range(0, enemyListSize - 1);
+            chosenSpawn = Random.Range(0, spawnListSize);   // grabs a random index of the list
+            chosenEnemy = Random.Range(0, enemyListSize);
 
             Instantiate(enemyPrefabs[chosenEnemy], spawnZones[chosenSpawn].transform.position, transform.rotation);     // creates an enemy of the chose type at the chose spawn zone's location
 
