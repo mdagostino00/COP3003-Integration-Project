@@ -203,10 +203,12 @@ public class Enemy : Entity
         public override void Enter()
         {
             base.Enter();
-            Debug.Log("take damage");
+
+            thisEnemy.HealthReduce(10);
+            if (thisEnemy.CurrentHealth <= 0)
+                Destroy(thisEnemy.gameObject);
             thisEnemy.enemyFSM.SetCurrentState((EnemyFSMStateType) 0);      // return it to the default state
         }
-
     }
 
     /// <summary>
