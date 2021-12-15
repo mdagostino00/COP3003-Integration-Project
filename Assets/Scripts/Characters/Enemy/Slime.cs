@@ -9,39 +9,69 @@ public class Slime : Enemy
     // Rather than inheriting just to reuse the implementation and functions of its superclasses, Slime exists as a 'type' of Enemy.
     // All subtypes of Enemy exist with the assumption that they can safely use any Enemy method, and will almost always be required to do so.
     // Every function that can be invoked on Enemy can also be invoked on Slime
-    protected override void Awake()
+
+    public class SlimeFSMState_Idle : EnemyFSMState_Idle
     {
-        base.Awake();
+        public SlimeFSMState_Idle(Enemy enemy) : base(enemy)
+        {
+            _id = EnemyFSMStateType.IDLE;
+        }
 
-        // set movement values
-        moveDelay = 0.75f;
-        moveLength = 0.5f;
+        public override void Update()
+        {
+            base.Update();
 
-        // make it so it does not immediately move
-        isMoving = false;
+            thisEnemy.timer += Time.deltaTime;          // each frame, add how much time has passed.
+
+            if (thisEnemy.timer >= thisEnemy.MoveDelay)     // and they have been delayed long enough
+            {
+                thisEnemy.timer = 0.0f;           // reset the timer
+                thisEnemy.enemyFSM.SetCurrentState(EnemyFSMStateType.MOVEMENT);        // set them to start moving
+                thisEnemy.IsMoving = true;
+            }
+        }
+    }
+
+    public class SlimeFSMState_Movement : EnemyFSMState_Movement
+    {
+        public SlimeFSMState_Movement(Enemy enemy) : base(enemy)
+        {
+            _id = EnemyFSMStateType.MOVEMENT;
+        }
+
+        public override void Update()
+        {
+            base.Update();
+
+            thisEnemy.timer += Time.deltaTime;        // each frame, add how much time has passed.
+
+            if (thisEnemy.timer >= thisEnemy.MoveLength)    // and if they have been moving for long enough
+            {
+                thisEnemy.timer = 0.0f;           // reset the timer
+                thisEnemy.enemyFSM.SetCurrentState(EnemyFSMStateType.IDLE);        // set them to stop moving
+                thisEnemy.IsMoving = false;
+            }
+        }
+    }
+
+
+    protected override void MakeFSMDictionary()
+    {
+        // add all the enemy states to the FSM dictionary
+        enemyFSM.Add(new SlimeFSMState_Idle(this));
+        enemyFSM.Add(new SlimeFSMState_Movement(this));
+        enemyFSM.Add(new EnemyFSMState_Dead(this));
+
+        // set the state to idle by default
+        enemyFSM.SetCurrentState(EnemyFSMStateType.IDLE);
     }
 
     // Use Update() for non-physics (timer)
     protected override void Update()
     {
-        timer += Time.deltaTime;        // each frame, add how much time has passed.
-
-        if (isMoving == false)          // if the enemy is not moving
-        {
-            base.Update();              // only let the slime change directions while it is getting ready to jump
-
-            if (timer >= moveDelay)     // and they have been delayed long enough
-            {
-                timer = 0.0f;           // reset the timer
-                isMoving = true;        // set them to start moving
-            }
-        }
-
-        if (isMoving == true)           // if the enemy is moving
-            if (timer >= moveLength)    // and if they have been moving for long enough
-            {
-                timer = 0.0f;           // reset the timer
-                isMoving = false;       // set them to stop moving
-            }
+        if (isMoving)
+            enemyFSM.Update();             // only let the slime change directions while it is getting ready to jump
+        else
+            base.Update();                 // this update includes the targetPlayer function
     }
 }

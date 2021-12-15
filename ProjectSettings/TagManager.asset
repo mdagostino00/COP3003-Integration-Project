@@ -3,7 +3,10 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Wall
+  - Enemy
+  - SwordHitbox
   layers:
   - Default
   - TransparentFX
@@ -12,12 +15,12 @@ TagManager:
   - Water
   - UI
   - 
-  - 
   - Blocking
+  - Piercing
   - Actor
-  - 
-  - 
-  - 
+  - ActorHitbox
+  - Enemy
+  - EnemyHitbox
   - 
   - 
   - 

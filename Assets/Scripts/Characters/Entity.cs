@@ -22,7 +22,7 @@ public class Entity : MonoBehaviour
     [SerializeField]
     private int healthTotal = HEALTH_BASE;
     [SerializeField]
-    private int health;
+    private int currentHealth;
 
     [SerializeField]
     protected static int MAGICPOINTS_BASE = 20;
@@ -42,16 +42,12 @@ public class Entity : MonoBehaviour
     public float runSpeedMultiplier = 1.3f; // runSpeed for when it's implemented
     [SerializeField]
     private float attackMod = 1.0f; // mod for physical attacks
-    //[SerializeField]
-    // private float magicMod = 1.0f; // mod for magic-based attacks
     [SerializeField]
     private float defenseMod = 1.0f; // physical defense modifier
     //[SerializeField]
-    // private float defenseModMagic = 1.0f; // possible alt defmod for magic-property attacks
-    //[SerializeField]
     //private float attackSpeed; // how long until player can attack again
 
-    public int Health { get => health; set => health = value; }
+    public int CurrentHealth { get => currentHealth; set => currentHealth = value; }
     public int HealthTotal { get => healthTotal; set => healthTotal = value; }
     public float SpeedMultiplier { get => walkSpeedMultiplier; set => walkSpeedMultiplier = value; }
     public int Level { get => level; set => level = value; }
@@ -133,7 +129,7 @@ public class Entity : MonoBehaviour
     public int HealthReduce(int damageValue)
     {
         //damageValue = (int)(damageValue * DefenseMod); // multiply damage value by player defense
-        this.health -= damageValue; // subtract modified damage from health
+        this.currentHealth -= damageValue; // subtract modified damage from health
         return damageValue; // return if print damage needed
     }
 
@@ -144,12 +140,12 @@ public class Entity : MonoBehaviour
             healValue = 1;
             Debug.Log("This healing item healed for less than 1 HP\n");
         }
-        int healMax = healthTotal - health;
+        int healMax = healthTotal - currentHealth;
         if (healValue > healMax)
         {
             healValue = healMax;
         }
-        this.health += healValue;
+        this.currentHealth += healValue;
         return healValue; // return value if heal number needed
     }
 
@@ -182,13 +178,22 @@ public class Entity : MonoBehaviour
             Debug.Log("This healing item healed for less than 1 HP\n");
         }
 
-        int healMax = healthTotal - health;  //check to see if healValue is more than max health
+        int healMax = healthTotal - currentHealth;  //check to see if healValue is more than max health
         if (healValue > healMax)
         {
             healValue = healMax;  // set healValue to most health that can be healed
         }
 
-        this.health += healValue; // heal the player
+        this.currentHealth += healValue; // heal the player
         return healValue; // return value if heal number needed
+    }
+
+    protected virtual void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "SwordHitbox" && collision.gameObject.tag != "Player")
+        {
+            Destroy(gameObject);
+            Debug.Log("Hit");
+        }
     }
 }
