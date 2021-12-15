@@ -41,7 +41,7 @@ If you would like to contribute and think you have good ideas, just message us o
  - I would also like to thank everyone who gave input on our game, all together. Thank you for your advice and support!
 
 ## History
-At first it was going to be a JRPG style game but it has turned more into a skill based dungeon crawler where you want to complete levels, kill enemies and survive!
+At first it was going to be a JRPG style game but it has turned more into a skill based dungeon crawler where you want to complete levels, kill enemies and survive! We chose to focus on making the game more dynamic, in these few months that we had, to make it easy to implement enemies and levels, rather than having a lot them.
 
 
 
