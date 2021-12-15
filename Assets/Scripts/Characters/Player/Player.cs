@@ -1,6 +1,12 @@
+///<summary>
+/// <c>Michael D'Agostino</c>
+/// This file contains the code for the Player object.
+/// It includes the Player class, along with the Player's States that are 
+/// necessary for the state machine.
+/// </summary>
+
+///</summary>
 /* 
- *  Michael D'Agostino
- *  
  *  LO5:
  *  Inheritance refers to when a class reuses code from another class. You can create a subclass
  *  from a base class by inheriting from that base class. The functions in the base class can then be reused or
@@ -32,6 +38,7 @@
  *  https://youtu.be/Vt8aZDPzRjI
  *  https://faramira.com/implementing-a-finite-state-machine-using-c-in-unity-part-1/
  */
+///</summary>
 
 using System.Collections;
 using System.Collections.Generic;
@@ -40,7 +47,7 @@ using UnityEngine.InputSystem;
 using Patterns;  // finite state machine
 
 /// <summary>
-/// 
+/// <c>PlayerFSMStateType</c> Enumeration list for easy references to all of the available states.
 /// </summary>
 // number all the states
 public enum PlayerFSMStateType
@@ -54,14 +61,14 @@ public enum PlayerFSMStateType
 }
 
 /// <summary>
-/// 
+/// <c>PlayerFSMState</c> A template state with functions needed for the Player's FSM states.
+/// /// <see cref="State{T}">
 /// </summary>
 public class PlayerFSMState : State<int>
 {
     // we will keep the ID for state for convenience
     // this id represents the key
     public new PlayerFSMStateType ID { get { return _id; } }
-
     protected Player _player = null;
     protected PlayerFSMStateType _id;
 
@@ -183,7 +190,6 @@ public class PlayerFSMState_ATTACK : PlayerFSMState
     {
         base.Update();
         //Debug.Log("In attack function");
-
         if (_player.attackPressed == false)
         {
             _player.anim.SetBool("attack", false);
@@ -351,7 +357,8 @@ public class PlayerFSM : FiniteStateMachine<int>
 }
 
 /// <summary>
-/// 
+/// This class allows for the Player object to interact with the Unity Engine.
+/// LO1
 /// </summary>
 public class Player : Entity
 {
