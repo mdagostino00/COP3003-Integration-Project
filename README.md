@@ -1,5 +1,5 @@
 ﻿# Dungeon Knight
-This is a top-down Diablo-like dungeon-crawler with a planned selectable class system, customizable level-up system, and randomized levels and item drops. It will have a discoverable map and real-time HUD with an active inventory management system and an optional story. Hopefully, it will have support for multiplayer in the future. We are making a game for our Programming II (Object Oriented Programming) integration project. This project is a collaboration between Michael DAgostino, Elijah Nieves, and Robert McNiven. We are using Unity game engine and mainly collaborated over Discord and in school.
+This is a top-down Diablo-like dungeon-crawler prototype built for our Programming II (Object Oriented Programming) integration project. It features a playable Knight with a basic attack function, and different enemies to slay. We planned a selectable class system, customizable level-up system, and randomized levels and item drops, but due to time, the prototype lacks these features. It will have a discoverable map and real-time HUD with an active inventory management system and an optional story. Hopefully, it will have support for multiplayer in the future. This project is a collaboration between Michael D'Agostino, Elijah Nieves, and Robert McNiven.
 
 
 ## Demonstration
@@ -16,7 +16,7 @@ This is our initial class diagram for the Entity parent class and its children:
 
 
 ## Getting Started
-Although our game is not complete, we plan to release it on Steam so others can play and enjoy it just as we have making it.
+Although our game is not complete, we want to release it on Steam so others can play and enjoy it just as we have making it.
 
 
 ## Built With
