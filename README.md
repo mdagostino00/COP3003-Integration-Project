@@ -46,7 +46,6 @@ If you would like to contribute and think you have good ideas, just message us o
 At first it was going to be a JRPG style game but it has turned more into a skill based dungeon crawler where you want to complete levels, kill enemies and survive! We chose to focus on making the game more dynamic, in these few months that we had, to make it easy to implement enemies and levels, rather than having a lot them.
 
 
-
 ## Key Programming Concepts Utilized
 -   LO1. Design and implement a class.
     
@@ -74,3 +73,5 @@ At first it was going to be a JRPG style game but it has turned more into a skil
     
 -   Follow best practices for documentation
 
+## Error Report
+[Report](https://cdn.discordapp.com/attachments/895770715557621815/920860123910537216/unknown.png)
