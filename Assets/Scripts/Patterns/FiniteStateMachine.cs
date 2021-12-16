@@ -1,16 +1,38 @@
+/// <summary>
+/// Michael D'Agostino
+/// FiniteStateMachine.cs
+/// 
+/// This file contains a generic FiniteStateMachine class meant to be used with the State{T} class.
+/// Finite State Machine
+///  - a set of states
+///  - at any given time, the FSM can only be in one of these states
+///  - we can control the logic of each state
+/// we will use a dictionary to hold the possible states
+/// 
+/// Bugs:
+/// No known bugs.
+/// 
+/// Sources:
+/// https://faramira.com/implementing-a-finite-state-machine-using-c-in-unity-part-1/
+/// https://faramira.com/generic-finite-state-machine-using-csharp/
+/// </summary>
+
 using System.Collections;
 using System.Collections.Generic;
 
+/// <summary>
+/// <c>Patterns</c>namespace containing the FiniteStateMachine{T} class and the State{T} class
+/// </summary>
 namespace Patterns
 {
+    /// <summary>
+    /// <c>FiniteStateMachine</c>Generic class to support a finite state machine control flow algorithm.
+    /// 
+    /// 
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class FiniteStateMachine<T>
     {
-        // Finite State Machine
-        //  - a set of states
-        //  - at any given time, the FSM can only be in one of these states
-        //  - we can control the logic of each state
-        // we will use a dictionary to hold the possible states (p sure it counts as an aggregate)
-
         // dictionary for all possible states
         protected Dictionary<T, State<T>> m_states;
         // the current state
