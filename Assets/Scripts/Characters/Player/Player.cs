@@ -11,7 +11,7 @@
 /// Some states aren't utilized in the game yet.
 /// </summary>
 
-///</summary>
+
 /* 
  *  Michael LO5. Explain the relationship between object-oriented inheritance (code-sharing and overriding) 
  *  and subtyping (the idea of a subtype being usable in a context that expects the supertype).
@@ -61,7 +61,6 @@
  *  https://youtu.be/Vt8aZDPzRjI
  *  https://faramira.com/implementing-a-finite-state-machine-using-c-in-unity-part-1/
  */
-///</summary>
 
 using System.Collections;
 using System.Collections.Generic;
@@ -492,8 +491,9 @@ public class PlayerFSM : FiniteStateMachine<int>
 /// 
 /// Michael LO1. Design and implement a class. 
 /// 
-/// 
-/// 
+/// LO1a. At least one class in a header file with non-trivial methods implemented in a cpp file
+/// We don't have header files in C#. So I guess we have the Entity class in a different
+/// file that contains methods that the Player uses and/or overrides.
 /// </summary>
 public class Player : Entity
 {

@@ -5,6 +5,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+/// <summary>
+/// Entity is a base class used for both Players and Enemies. It holds important variables and universal functions used by both.
+/// This class should always be inherited from and never used as its own component.
+/// </summary>
 public class Entity : MonoBehaviour
 {
     // Entity utilizes terms from MonoBehaviour, a critical class from the Unity library. Because Entity has not overridden anything from MonoBehaviour, Entity is a subtype of MonoBehaviour
@@ -57,7 +61,10 @@ public class Entity : MonoBehaviour
     public int MagicPointsTotal { get => magicPointsTotal; set => magicPointsTotal = value; }
     public int ExperiencePoints { get => experiencePoints; set => experiencePoints = value; }
 
-    // Awake is called when Unity creates the object
+    /// <summary>
+    /// Awake is called when Unity creates the object. Similar to a constructor.
+    /// This function initializes the rigidbody collider, the animator, and makes the Entity's HP equal to its maximum.
+    /// </summary>
     protected virtual void Awake()
     {
         body = GetComponent<Rigidbody2D>();
@@ -65,7 +72,11 @@ public class Entity : MonoBehaviour
         CurrentHealth = HealthTotal;
     }
 
-    // FixedUpdate is called at a fixed interval, not always once per frame.
+    /// <summary>
+    /// FixedUpdate is called at a fixed interval. It is used for physics.
+    /// In almost every case, this function will be overriden.
+    /// This function handles rotation and movement.
+    /// </summary>
     protected virtual void FixedUpdate()
     {
         RotateTowardDirection();
@@ -73,7 +84,10 @@ public class Entity : MonoBehaviour
         Debug.Log("This won't print if override is successful.");
     }
 
-    // gets the magnitude of the velocity vector
+    /// <summary>
+    /// This function gets the magnitude of the velocity vector
+    /// </summary>
+    /// <returns></returns>
     float GetMagnitude()
     {
         float velocityX = body.velocity.x * body.velocity.x;
@@ -82,6 +96,9 @@ public class Entity : MonoBehaviour
         return magnitude;
     }
 
+    /// <summary>
+    /// This function calculates where the next position should be based on the movement vector and changes the object's position according to that vector
+    /// </summary>
     protected void Movement()
     {
         // get current position
@@ -94,11 +111,18 @@ public class Entity : MonoBehaviour
         body.MovePosition(newPos);
     }
 
+    /// <summary>
+    /// This function moves the Entity along the given vector. It factors in its move speed.
+    /// </summary>
+    /// <param name="direction"> The passed vector which points towards the Entity's destination. </param>
     protected void Movement(Vector2 direction)
     {
         body.MovePosition((Vector2)transform.position + (direction * walkSpeedMultiplier * Time.deltaTime));
     }
 
+    /// <summary>
+    /// This function rotates the sprite of the Entity to be looking toward the direction it is moving.
+    /// </summary>
     protected virtual void RotateTowardDirection() // virtual because we might need to handle this function depending on enemy
     {
         //turn off walking
@@ -110,6 +134,9 @@ public class Entity : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// This function rotates the sprite of the Entity to be looking toward the direction vector which is passed.
+    /// </summary>
     protected void RotateTowardDirection(ref Vector2 direction)
     {
         //rotate the sprite without quaterions (rotation is off by 90)
@@ -121,12 +148,22 @@ public class Entity : MonoBehaviour
                 Quaternion.LookRotation(Vector3.forward, movement);
     }
 
+    /// <summary>
+    /// This function calculates the total damage dealt by the Entity, multiplying the Entity's attack modifer to it.
+    /// </summary>
+    /// <param name="baseDamage"> the base amount of damage the Entity does with no modifiers. </param>
+    /// <returns></returns>
     public int DamageCalculate(int baseDamage)
     {
         int modifiedDamage = (int)(baseDamage * attackMod);
         return modifiedDamage;
     }
 
+    /// <summary>
+    /// This function reduces the Entity's health by the passed amount.
+    /// </summary>
+    /// <param name="damageValue"> The amount of damage the Entity should take. </param>
+    /// <returns></returns>
     public int HealthReduce(int damageValue)
     {
         //damageValue = (int)(damageValue * DefenseMod); // multiply damage value by player defense
@@ -134,6 +171,11 @@ public class Entity : MonoBehaviour
         return damageValue; // return if print damage needed
     }
 
+    /// <summary>
+    /// This function increases the Entity's health by the passed amount.
+    /// </summary>
+    /// <param name="healValue"> The amount of health the Entity should heal for. </param>
+    /// <returns></returns>
     public int HealthHeal(int healValue)
     {
         if (healValue < 1)
@@ -150,6 +192,14 @@ public class Entity : MonoBehaviour
         return healValue; // return value if heal number needed
     }
 
+
+    /// <summary>
+    /// This function increases the Entity's health by the passed amount, adjusting the amount based on the kind of healing item which triggered the heal.
+    /// </summary>
+    /// <param name="healValue"></param>
+    /// <param name="healType"> A character representing what kind of healing item triggered the heal.
+    /// 's' == small, 'm' == medium, 'l' == large, 'x' == x-large. </param>
+    /// <returns></returns>
     public int HealthHeal(int healValue, char healType)
     {
         switch (healType)
@@ -189,6 +239,13 @@ public class Entity : MonoBehaviour
         return healValue; // return value if heal number needed
     }
 
+
+    /// <summary>
+    /// Checks for collision with other game objects and runs when it detects one.
+    /// This function destroys a gameObject that was hit by the Player's sword hitbox (excluding the player).
+    /// This function should be overridden by Enemy. 
+    /// </summary>
+    /// <param name="collision"> The specific instance of collision. Automatically passed by Unity </param>
     protected virtual void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "SwordHitbox" && collision.gameObject.tag != "Player")
