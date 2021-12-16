@@ -1,6 +1,8 @@
 ﻿# Dungeon Knight
 This is a top-down Diablo-like dungeon-crawler prototype built for our Programming II (Object Oriented Programming) integration project. It features a playable Knight with a basic attack function, and different enemies to slay. We planned a selectable class system, customizable level-up system, and randomized levels and item drops, but due to time, the prototype lacks these features. It will have a discoverable map and real-time HUD with an active inventory management system and an optional story. Hopefully, it will have support for multiplayer in the future. This project is a collaboration between Michael D'Agostino, Elijah Nieves, and Robert McNiven.
 
+## Controls
+Use WASD or the arrow keys to move. Use 'J' to attack
 
 ## Demonstration
 [Starting Up](COP3003-Integration-Project/ReadmeImages/giphy.mp4)
