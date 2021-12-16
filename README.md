@@ -14,7 +14,7 @@ For this game we wrote all of our scripts in C#. We are using standard formattin
 
 ## Diagrams
 This is our full class diagram of all the project components:
-[Diagram](DungeonKnightClassDiagram.png)
+[Diagram](https://github.com/mdagostino00/COP3003-Integration-Project/blob/master/ReadmeImages/DungeonKnightClassDiagram.png)
 
 
 ## Getting Started
