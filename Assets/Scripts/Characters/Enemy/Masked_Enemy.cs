@@ -1,19 +1,43 @@
 //Robert McNiven
+/// <summary>
+/// Making a new type of enemy derived from the enemy class.
+/// </summary>
+
+/* Object-Orieneted Programming will create "objects" from classes.
+ these objects will contain information that can be set or pre-defined
+about them. This is better to use than other paradigms, such as
+functional and procedural, for this project, because we have many
+aspects in the game that have similrities to one another.*/
+
+/*Masked_Enemy is and Enemy and Enemy is an Entity. These all have similar
+ fields and methods, for example, thay all have health, MP, and movement*/
 
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary> <c>Masked_Enemy</c>
+/// Masked_Enemy is derived from the Emeny class.
+/// </summary>
 public class Masked_Enemy : Enemy
 {
+    /// <summary> <c>Masked_EnemyFSMState_Idle</c>
+    /// Making a new FSM idle class derived from the EnemyFSM idle
+    /// </summary>
     public class Masked_EnemyFSMState_Idle : EnemyFSMState_Idle
     {
+        /// <summary> <c>Masked_EnemyFSMState_Idle</c>
+        /// Setting IDLE for this enemy
+        /// </summary>
+        /// <param name="enemy"></param>
         public Masked_EnemyFSMState_Idle(Enemy enemy) : base(enemy)
         {
             _id = EnemyFSMStateType.IDLE;
         }
-
-        public override void Update()
+        /// <summary> <c>Update</c>
+        /// Overriding the Update in EnemyFSMState_Idle so this is called with this enemies specific traits.
+        /// </summary>
+        public override void Update() // Overloading
         {
             base.Update();
 
@@ -27,14 +51,22 @@ public class Masked_Enemy : Enemy
             }
         }
     }
-
+    /// <summary> <c>Masked_EnemyFSMState_Movement</c>
+    /// Making a new FSM Movement class derived from the EnemyFSM Movement
+    /// </summary>
     public class Masked_EnemyFSMState_Movement : EnemyFSMState_Movement
     {
+        /// <summary> <c>Masked_EnemyFSMState_Movement</c>
+        /// Setting movement ID for FSM dictionary
+        /// </summary>
+        /// <param name="enemy"></param>
         public Masked_EnemyFSMState_Movement(Enemy enemy) : base(enemy)
         {
             _id = EnemyFSMStateType.MOVEMENT;
         }
-
+        /// <summary> <c>Update</c>
+        /// Overriding the Update in EnemyFSMState_Movement so this is called with this enemies specific traits.
+        /// </summary>
         public override void Update()
         {
             base.Update();
@@ -49,7 +81,9 @@ public class Masked_Enemy : Enemy
             }
         }
     }
-
+    /// <summary> <c>MakeFSMDictionary</c>
+    /// Made this function to override the one in the parent class and make this enemies own FSM dictionary.
+    /// </summary>
     protected override void MakeFSMDictionary()
     {
         enemyFSM.Add(new Masked_EnemyFSMState_Idle(this));
@@ -59,24 +93,29 @@ public class Masked_Enemy : Enemy
 
         enemyFSM.SetCurrentState(EnemyFSMStateType.IDLE);
     }
-
+    /// <summary> <c>Update</c>
+    /// Using this to apply this enemies movement instead of the default
+    /// </summary>
     protected override void Update()
     {
         //targetPlayer();
         //RotateTowardDirection();
         base.Update();
     }
+    /// <summary> <c>RotateTowardDirection</c>
+    /// Tells the enemy where to turn towards the player.
+    /// </summary>
     protected override void RotateTowardDirection()
     {
         // Need to override this so that the Maked_Enemy does not rotate
 
         //base.RotateTowardDirection();
         //turn off walking
-        if (movement != Vector2.zero) 
+        if (movement != Vector2.zero)
         {
             transform.rotation =
                 Quaternion.AngleAxis(180, Vector3.up);
-            
+
         }
     }
 }
