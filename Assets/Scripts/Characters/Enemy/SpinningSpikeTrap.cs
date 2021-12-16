@@ -53,6 +53,9 @@ public class SpinningSpikeTrap : Enemy
     /// </summary>
     protected override void Update()
     {
+        body.AddTorque(10 * Time.deltaTime);
         enemyFSM.Update();              // dont allow it to change directions
     }
+
+
 }

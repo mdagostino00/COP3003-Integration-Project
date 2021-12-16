@@ -15,7 +15,7 @@ public class Enemy : Entity
     //      Putting our code into functions such as Unity's Awake() or Update() lets Unity call this code and manipulate/change the GameObjects they are attached to.
     //
 
-    // LO5. 
+    // LO5. Relationship between inheritance and subtyping
     // Enemy "is an" Entity. Enemy has a subtyping relationship with Entity.
     // Rather than inheriting just to reuse the implementation and functions of its superclasses, Enemy exists as a 'type' of Entity.
     // All subtypes of Entity exist with the assumption that they can safely use any Entity method, and will almost always be required to do so.
@@ -27,13 +27,17 @@ public class Enemy : Entity
     // variables for all the state classes to use
     public float timer { get; set; } = 0.0f;
 
+
     // Unity cannot serialize fields with getters and setters, so these have separate fields that act as getters/setters.
     [SerializeField]
     protected bool isMoving = false;       // set the object to be moving or not moving initially
     [SerializeField]
-    protected float moveDelay = 0.0f;       // how many seconds the enemy will wait between moving toward the player.
+    private float moveDelay = 0.0f;       // how many seconds the enemy will wait between moving toward the player.
     [SerializeField]
-    protected float moveLength = 1.0f;       // how many seconds the enemy will move towards the player before delaying again
+    private float moveLength = 1.0f;       // how many seconds the enemy will move towards the player before delaying again
+
+    // LO6. Use object-oriented encapsulation mechanisms such as interfaces and private members.
+    //      Above an below are instances of private fields and methods. Subtypes of Enemy should not be able to change moveDelay or moveLength once they are set. 
 
     public float MoveDelay { get => moveDelay; private set => moveDelay = value; }
     public float MoveLength { get => moveLength; private set => moveLength = value; }
@@ -44,8 +48,8 @@ public class Enemy : Entity
     /// </summary>
     public enum EnemyFSMStateType
     {
-        IDLE = 0,
-        MOVEMENT,
+        MOVEMENT = 0,
+        IDLE,
         ATTACK,
         TAKE_DAMAGE,  // not used yet, as no animation for this state
         DEAD,
@@ -57,6 +61,21 @@ public class Enemy : Entity
     /// </summary>
     public class EnemyFSMState : State<int>
     {
+        // LO3. Correctly reason about control flow in a program using dynamic dispatch.
+        //      While dynamic dispatch is not being done in this class itself, it is being done in the base class, State.
+        //      To utilize EnemyFSMState, I need to use everything in the base State and understand it. So while I did not write the State class, I am utilizing its dynamic dispatch.
+        //      The way State utilizes dynamic dispatch is through Delegates. Delegates are similar to C++ function pointers, where they hold a reference to a method.
+        //      When we make new States with new methods, it then decided what gets attached to these delegates and used by the State. The polymorphism lies here,
+        //      where we decide what functions such as "OnEnter" means upon creation of the State. 
+
+        // LO4. This State machine is created by making objects of each state that hold different instances of functions such as Update() or Enter()
+        //      While state machines can be made using a procedural/functional approach, it would not be as easy to understand and implement
+        //      OOP lets us classify things as objects which hold specific code and have specific purposes. Making the States into objects is useful to
+        //      encapsulate all the code specifically needed for that state. Creating new State objects is easy
+        //      However, with a procedural approach, we would lack the useful inheritance of the states as well as the easy method of separating the code into
+        //      bundles of code within the specified objects.
+        //      Given that an Enemy can have any number of States, it just makes more sense to use objects
+
         // we will keep the ID for state for convenience
         // this id represents the key
         public new EnemyFSMStateType ID { get { return _id; } }
@@ -206,7 +225,7 @@ public class Enemy : Entity
 
             thisEnemy.HealthReduce(10);
             if (thisEnemy.CurrentHealth <= 0)
-                Destroy(thisEnemy.gameObject);
+                thisEnemy.enemyFSM.SetCurrentState(EnemyFSMStateType.DEAD);
             thisEnemy.enemyFSM.SetCurrentState((EnemyFSMStateType) 0);      // return it to the default state
         }
 
@@ -226,6 +245,15 @@ public class Enemy : Entity
         {
             _id = EnemyFSMStateType.DEAD;
         }
+
+        /// <summary>
+        /// This gets called upon entering the state. It destroys the enemy.
+        /// </summary>
+        public override void Enter()
+        {
+            base.Enter();
+            Destroy(thisEnemy.gameObject);
+        }
     }
 
 
@@ -234,7 +262,7 @@ public class Enemy : Entity
     /// Through the objects of this class, Enemy objects can add State keys to an FSM dictionary and set their current State key.
     /// </summary>
     public class EnemyFSM : FiniteStateMachine<int>
-    {
+    {   
         /// <summary>
         /// Calls the base constructor, which makes a dictionary of enumerated State keys
         /// </summary>
@@ -253,7 +281,8 @@ public class Enemy : Entity
         }
 
         /// <summary>
-        /// Using an input key, returns an object of that state
+        /// When sent an enumerated data type from the FSM dictionary, this function will return an object which correlates to the 'key' which was passed
+        /// i.e. passing MOVEMENT will return an object of EnemyFSMState_Movement
         /// </summary>
         /// <param name="key"> The enumerated State key which describes the State the object is in. i.e IDLE, MOVEMENT, DEAD, etc </param>
         /// <returns></returns>
@@ -306,7 +335,7 @@ public class Enemy : Entity
     /// <summary>
     /// A function that adds a set of States to the dictionary. 
     /// It is meant to be overridden so that unique enemies may add their own unique States to their respective dictionary.
-    /// Sets the default State to IDLE
+    /// Sets the default State to MOVEMENT
     /// </summary>
     protected virtual void MakeFSMDictionary()
     {
@@ -317,8 +346,8 @@ public class Enemy : Entity
         enemyFSM.Add(new EnemyFSMState_TakeDamage(this));
         enemyFSM.Add(new EnemyFSMState_Dead(this));
 
-        // set the state to idle by default
-        enemyFSM.SetCurrentState(EnemyFSMStateType.IDLE);
+        // set the state to moving by default
+        enemyFSM.SetCurrentState(EnemyFSMStateType.MOVEMENT);
     }
 
     /// <summary>
@@ -354,6 +383,10 @@ public class Enemy : Entity
         enemyFSM.FixedUpdate();
     }
 
+    /// <summary>
+    /// This normalizes the vector and makes it so that the enemy can have their sprite properly point towards the player
+    /// </summary>
+    /// <param name="direction"> The direction vector the enemy will be moving along </param>
     public void moveCharacter(ref Vector2 direction)
     {
 
@@ -361,6 +394,11 @@ public class Enemy : Entity
         movement = direction; // Vector2D movement is now the normalized vector
     }
 
+    /// <summary>
+    /// This function runs when Unity detects that a game object has collided with this one. There is no reason to call this function independantly.
+    /// When an enemy collides with something, it will check to see if it was that Player's sword. If it was, it will shift to the TakeDamage State
+    /// </summary>
+    /// <param name="col"> The specific instance of collision that was detected. Gets passed automatically by Unity. </param>
     protected override void OnCollisionEnter2D(Collision2D col)  // if they hit something
     {
         if (col.gameObject.tag == "SwordHitbox")
