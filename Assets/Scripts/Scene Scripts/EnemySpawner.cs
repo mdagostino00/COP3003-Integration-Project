@@ -53,6 +53,12 @@ public class EnemySpawner : MonoBehaviour
     private float timer = 0.0f; // Holds how many seconds have passed
     private bool isSpawning = false; // Records when an enemy is spawning so we dont have multiple spawning each frame one is supposed to spawn.
 
+
+    /// <summary>
+    /// Checks for collision with other game objects and runs when it detects one.
+    /// When a player enters the 'spawn zone', it will wake up the spawner and disable the collider so that it does not obstruct the player.s
+    /// </summary>
+    /// <param name="col"> The specific instance of collision. Automatically passed by Unity </param>
     private void OnCollisionEnter2D(Collision2D col)  // if they hit something
     {
         if (col.gameObject.tag == "Player" && !monsterSpawningMonster)      // if its a player and the spawner is not a monster 
@@ -62,9 +68,21 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    // Start is called before the first frame update
+
+    // LO1c. Utilize an initialization list
+    //       Initialization lists were made illegal in C#.
+    //       https://stackoverflow.com/questions/2435175/when-initializing-in-c-sharp-constructors-whats-better-initializer-lists-or-as
+
+    // EnemySpawner() : enemyListSize(int i = enemyPrefabs.Count) {}
+
+    /// <summary>
+    /// Start is called before the first frame update. It is essentially the default constructor of Unity.
+    /// This function grabs the list size of the Enemy and Spawn lists. If the spawner is a monster, it wakes the spawner.
+    /// Otherwise, it maxes out the timer so that the first spawn instance triggers upon collision with the Player
+    /// </summary>
     private void Start()
     {
+        // this is where I could use an initialization list.... IF I HAD ONE
         enemyListSize = enemyPrefabs.Count;
         spawnListSize = spawnZones.Count;
 
@@ -74,7 +92,11 @@ public class EnemySpawner : MonoBehaviour
             timer = (float)spawnDelay;     //  makes it so the spawner will spawn an enemy immediately upon awaking
     }
 
-    // Update is called once per frame
+    /// <summary>
+    /// Update is called once every frame. Used for non-physics operations.
+    /// This function manages the timer and once it has delayed for the specified amount, 
+    /// it sets the spawner to start spawning
+    /// </summary>
     private void Update()
     {
         if (isAwake)
@@ -93,6 +115,11 @@ public class EnemySpawner : MonoBehaviour
     }
     
     // FixedUpdate is called at a fixed interval, not always once per frame.
+    /// <summary>
+    /// FixedUpdate is called at a fixed interval. Used for physics (in this case, spawning game objects).
+    /// This function checks to see if the spawner is set to spawn. Then it does one instance of spawning, 
+    /// and sets the spawner to stop spawning and wait for the timer again.
+    /// </summary>
     private void FixedUpdate()
     {
         if (isSpawning)
@@ -102,6 +129,11 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// This functions spawns(Instantiates) enemies at the specified locations.
+    /// It spawns the specified amount of enemies and increments the total amount of enemies spawned.
+    /// If endlessSpawn is set, it will ignore the limit on set on the total amount of enemies spawned.
+    /// </summary>
     private void SpawnEnemy()
     {
         if ((totalEnemiesSpawned < totalSpawnAmount) || endlessSpawn)
@@ -118,6 +150,10 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// This function checks to see if spawn zones are randomized. If not, then it picks a spawn zone from the list sequentially.
+    /// Otherwise, it picks a random spawn zone.
+    /// </summary>
     private void ChooseSpawnZone()
     {
         if (sequentialSpawnZones)
@@ -131,6 +167,10 @@ public class EnemySpawner : MonoBehaviour
             chosenSpawn = Random.Range(0, spawnListSize);   // grabs a random index of the list
     }
 
+    /// <summary>
+    /// This function checks to see if spawned enemies are randomized. If not, then it picks an enemy from the list sequentially.
+    /// Otherwise, it picks a random enemy.
+    /// </summary>
     private void ChooseSpawnedEnemy()
     {
         if (sequentialEnemySpawns)
