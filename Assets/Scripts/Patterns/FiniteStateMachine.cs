@@ -3,7 +3,6 @@
 /// FiniteStateMachine.cs
 /// 
 /// This file contains a generic FiniteStateMachine class meant to be used with the State{T} class.
-/// Use with State.cs.
 /// Finite State Machine
 ///  - a set of states
 ///  - at any given time, the FSM can only be in one of these states
