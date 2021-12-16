@@ -89,7 +89,7 @@ public class Masked_Enemy : Enemy
         enemyFSM.Add(new Masked_EnemyFSMState_Idle(this));
         enemyFSM.Add(new Masked_EnemyFSMState_Movement(this));
         enemyFSM.Add(new EnemyFSMState_TakeDamage(this));
-        //enemyFSM.Add(new Masked_EnemyFSMState_Dead(this));
+        enemyFSM.Add(new EnemyFSMState_Dead(this));
 
         enemyFSM.SetCurrentState(EnemyFSMStateType.IDLE);
     }
