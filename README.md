@@ -12,7 +12,7 @@ For this game we wrote all of our scripts in C#. We are using standard formattin
 
 ## Diagrams
 This is our initial class diagram for the Entity parent class and its children:
-[Entity](COP3003-Integration-Project/ReadmeImages/BeginningClassDiagram.PNG)
+[Entity](ReadmeImages/BeginningClassDiagram.PNG)
 
 
 ## Getting Started
