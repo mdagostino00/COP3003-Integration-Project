@@ -13,8 +13,8 @@ For this game we wrote all of our scripts in C#. We are using standard formattin
 
 
 ## Diagrams
-This is our initial class diagram for the Entity parent class and its children:
-[Entity](ReadmeImages/BeginningClassDiagram.PNG)
+This is our full class diagram of all the project components:
+[Diagram](https://cdn.discordapp.com/attachments/895770715557621815/920878867646935040/unknown.png)
 
 
 ## Getting Started
