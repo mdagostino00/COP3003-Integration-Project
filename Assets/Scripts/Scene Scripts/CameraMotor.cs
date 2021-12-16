@@ -1,7 +1,17 @@
+/// <summary>
+/// Michael D'Agostino
+/// CameraMotor.cs
+/// 
+/// This file has code needed to make the camera follow the player object.
+/// </summary>
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Attach this to a camera in Unity to make it follow an object
+/// </summary>
 public class CameraMotor : MonoBehaviour
 {
     [SerializeField]
@@ -9,7 +19,11 @@ public class CameraMotor : MonoBehaviour
     private float boundX = 0.4f;
     private float boundY = 0.2f;
 
-    private void LateUpdate()       // called after Update and FixedUpdate
+    /// <summary>
+    /// <c>LateUpdate</c>called after Update and FixedUpdate
+    /// This was very early code lol.
+    /// </summary>
+    private void LateUpdate()
     {
         Vector3 delta = Vector3.zero;
 
