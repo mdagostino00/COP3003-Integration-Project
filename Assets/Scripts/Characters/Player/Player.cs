@@ -61,6 +61,10 @@
 /// https://youtu.be/Vt8aZDPzRjI
 /// https://faramira.com/implementing-a-finite-state-machine-using-c-in-unity-part-1/
 ///
+/// Code Quality and style was based on the .NET standard
+/// 
+/// https://docs.microsoft.com/en-us/visualstudio/code-quality/?view=vs-2022
+/// 
 ///</summary>
 
 using System.Collections;
