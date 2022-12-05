@@ -11,7 +11,8 @@
 /// Some states aren't utilized in the game yet.
 /// </summary>
 
-///</summary>
+
+///<summary>
 /// 
 /// Michael LO5. Explain the relationship between object-oriented inheritance (code-sharing and overriding) 
 /// and subtyping (the idea of a subtype being usable in a context that expects the supertype).
