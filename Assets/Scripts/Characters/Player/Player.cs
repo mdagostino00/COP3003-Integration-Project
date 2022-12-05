@@ -12,55 +12,61 @@
 /// </summary>
 
 
-/* 
- *  Michael LO5. Explain the relationship between object-oriented inheritance (code-sharing and overriding) 
- *  and subtyping (the idea of a subtype being usable in a context that expects the supertype).
- *  
- *  Inheritance refers to when a class reuses code from another class. You can create a subclass
- *  from a base class by inheriting from that base class. The functions in the base class can then be reused or
- *  changed as the subclass needs it.
- *  
- *  Subtyping refers to the compatibility of classes and interfaces. A class is a subtype of another class
- *  if the subtyping class can invoke every function that the other class can invoke.
- * 
- *  In C++/#, inheritance implies subtyping because a subclass will, by default, have the same
- *  functions as the base class. However, subtyping doesn't necessarily mean inheritance.
- *  
- *  The state machine below is an example of inheritance and subtyping.
- *  Each hard-coded state, such as PlayerFSMState_MOVEMENT, inherits from the 
- *  PlayerFSMState, which in turn inherits from a generic state. Since they use the exact
- *  same functions, these hard-coded states are also subtypes of the PlayerFSMState. 
- *  
- *  These states are stored in a dictionary aggregate in the FiniteStateMachine class, which we can then swap
- *  between by calling a function that returns the correct state when we pass it the right ID based
- *  on the input of the player.
- *  
- *  The idea behind this is that we can change the Update() and FixedUpdate() functions 
- *  called in the Player class based on the state of the player character. For example, when we 
- *  press the attack button, we can change the player character's state from free movement
- *  to its attack state, since the player can only be in one state at a time. We might want the player to
- *  be able to move during the movement state, but not able to move during an attack.
- *  
- *  Michael LO4. Include a comment in which you compare and contrast the procedural/functional 
- *  approach and the object-oriented approach
- *  
- *  In procedural programming, we're reading through the program line-by-line in order to make the program work. All
- *  data is usually shared throughout the program, and while it's possible to add OOP-styled encapsulation
- *  into this code, it's not used for it. It's a lot easier to write procedural code, as you typically never need
- *  to worry about sending messages between objects like in OOP.
- *  
- *  In Object-oriented programming, we're structuring our code based on conceptual objects, and tying our code to these objects.
- *  These objects communicate through messages sent between each other, which meant to protect data from being accessed
- *  without communicating with the class. This encapsulation is the main draw of OOP, as it adds an additional layer
- *  of security that the programmer needs to follow.
- *  
- *  Sources:
- *  
- *  https://www.youtube.com/watch?v=dQw4w9WgXcQs
- *  https://www.youtube.com/watch?v=m5WsmlEOFiA
- *  https://youtu.be/Vt8aZDPzRjI
- *  https://faramira.com/implementing-a-finite-state-machine-using-c-in-unity-part-1/
- */
+///<summary>
+/// 
+/// Michael LO5. Explain the relationship between object-oriented inheritance (code-sharing and overriding) 
+/// and subtyping (the idea of a subtype being usable in a context that expects the supertype).
+/// 
+/// Inheritance refers to when a class reuses code from another class. You can create a subclass
+/// from a base class by inheriting from that base class. The functions in the base class can then be reused or
+/// changed as the subclass needs it.
+/// 
+/// Subtyping refers to the compatibility of classes and interfaces. A class is a subtype of another class
+/// if the subtyping class can invoke every function that the other class can invoke.
+/// 
+/// In C++/#, inheritance implies subtyping because a subclass will, by default, have the same
+/// functions as the base class. However, subtyping doesn't necessarily mean inheritance.
+/// 
+/// The state machine below is an example of inheritance and subtyping.
+/// Each hard-coded state, such as PlayerFSMState_MOVEMENT, inherits from the 
+/// PlayerFSMState, which in turn inherits from a generic state. Since they use the exact
+/// same functions, these hard-coded states are also subtypes of the PlayerFSMState. 
+/// 
+/// These states are stored in a dictionary aggregate in the FiniteStateMachine class, which we can then swap
+/// between by calling a function that returns the correct state when we pass it the right ID based
+/// on the input of the player.
+/// 
+/// The idea behind this is that we can change the Update() and FixedUpdate() functions 
+/// called in the Player class based on the state of the player character. For example, when we 
+/// press the attack button, we can change the player character's state from free movement
+/// to its attack state, since the player can only be in one state at a time. We might want the player to
+/// be able to move during the movement state, but not able to move during an attack.
+/// 
+/// Michael LO4. Include a comment in which you compare and contrast the procedural/functional 
+/// approach and the object-oriented approach
+/// 
+/// In procedural programming, we're reading through the program line-by-line in order to make the program work. All
+/// data is usually shared throughout the program, and while it's possible to add OOP-styled encapsulation
+/// into this code, it's not used for it. It's a lot easier to write procedural code, as you typically never need
+/// to worry about sending messages between objects like in OOP.
+/// 
+/// In Object-oriented programming, we're structuring our code based on conceptual objects, and tying our code to these objects.
+/// These objects communicate through messages sent between each other, which meant to protect data from being accessed
+/// without communicating with the class. This encapsulation is the main draw of OOP, as it adds an additional layer
+/// of security that the programmer needs to follow.
+/// 
+/// Sources:
+/// 
+/// https://www.youtube.com/watch?v=dQw4w9WgXcQs
+/// https://www.youtube.com/watch?v=m5WsmlEOFiA
+/// https://youtu.be/Vt8aZDPzRjI
+/// https://faramira.com/implementing-a-finite-state-machine-using-c-in-unity-part-1/
+///
+/// Code Quality and style was based on the .NET standard
+/// 
+/// https://docs.microsoft.com/en-us/visualstudio/code-quality/?view=vs-2022
+/// 
+///</summary>
 
 using System.Collections;
 using System.Collections.Generic;
@@ -494,6 +500,7 @@ public class PlayerFSM : FiniteStateMachine<int>
 /// LO1a. At least one class in a header file with non-trivial methods implemented in a cpp file
 /// We don't have header files in C#. So I guess we have the Entity class in a different
 /// file that contains methods that the Player uses and/or overrides.
+/// 
 /// </summary>
 public class Player : Entity
 {
